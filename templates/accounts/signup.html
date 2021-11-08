@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class=" ">
+    <div class=" ">
+        <div class=" ">
+            <h4>계정생성</h4>
+        </div>
+        <div class=" ">
+            <span>또는 <a href="{% url 'accounts:login' %}">로그인 하세요.</a></span>
+        </div>
+    </div>
+    <form method="post" class=" " action="{% url 'accounts:signup' %}">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        {% if message %}
+        <strong>{{ message }}</strong>
+        {% endif %}
+        <div class=" ">
+            <label for="username">사용자 이름</label>
+            <input type="text" class=" " name="username" id="username"
+                value="{{ form.username.value|default_if_none:'' }}">
+        </div>
+        <div class=" ">
+            <label for="password1">비밀번호</label>
+            <input type="password" class=" " name="password1" id="password1"
+                value="{{ form.password1.value|default_if_none:'' }}">
+        </div>
+        <div class=" ">
+            <label for="password2">비밀번호 확인</label>
+            <input type="password" class=" " name="password2" id="password2"
+                value="{{ form.password2.value|default_if_none:'' }}">
+        </div>
+        <div class=" ">
+            <label for="code">인증코드</label>
+            <input type="text" class=" " name="code" id="code" value="{{ form.code.value|default_if_none:'' }}">
+        </div>
+        <button type="submit" class=" ">가입하기</button>
+    </form>
+</div>
+{% endblock %}

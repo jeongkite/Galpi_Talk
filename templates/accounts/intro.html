@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>하루면담</h1>
+<div>당신만의 이야기를</div>
+<div>기록하는 웹 질문지</div>
+
+{% if user.is_authenticated %}
+<span>{{ user.username }}</span>
+<button>로그아웃</button>
+{% else %}
+<a href="{% url 'accounts:login' %}"><button type="button" class="btn dark-btn">로그인</button></a>
+{% endif %}
+<a href="{% url 'accounts:signup' %}"><button type="button" class="btn light-btn">회원가입</button></a>
+
+<a href="">문제가 생겼나요?</a>
+
+{% endblock %}
