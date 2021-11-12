@@ -1,0 +1,119 @@
+h1 {
+    font-family: NanumSquare;
+    font-size: 2.5rem;
+    letter-spacing: 0.25px;
+    margin-top: 7%;
+    margin-bottom: 7%;
+}
+.exp-text {
+    font-family: NanumSquare;
+    line-height: 180%;
+    text-align: center;
+    letter-spacing: -0.15px;
+    margin-bottom: 7%;
+
+}
+
+.question {
+    font-family: NanumSquare;
+    color: #999694;
+    font-size: 0.8rem;
+    opacity: 0.5;
+    position: absolute;
+    bottom: 7%;
+}
+.center-flex {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    display: flex;
+    margin-top: 7%;
+    margin-left: 7%;
+}
+.left-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.align-left {
+    justify-content: left;
+    width: 80%;
+}
+.header h3 {
+    font-family: NanumSquare;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 130%;
+    letter-spacing: 0.15px;
+    margin-left: 10px;
+}
+
+.info {
+    margin-top: 10%;
+    width: 100%;
+}
+.info_title {
+    color: #999694;
+    font-family: NanumSquare;
+    font-weight: bold;
+    line-height: 150%;
+    letter-spacing: 0.25px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    text-align: left;
+    margin-top: 15%;
+}
+.info_box {
+    padding: 5%;
+    background: #FAFAFA;
+    border-radius: 10px;
+    box-sizing: border-box;
+    width: 80%;
+    margin-bottom: 10%;
+
+}
+.info_box p {
+    font-family: NanumSquare;
+    font-size: 0.78rem;
+    line-height: 150%;
+    color: #999694;
+    text-align: left;
+}
+.info_box p strong {
+    font-weight: bold;
+}
+
+form {
+    width: 100%;
+}
+
+.input-section {
+    padding: 3% 5%;
+    border-radius: 10px;
+    border: 1px solid #F5F5F5;
+    box-sizing: border-box;
+    width: 80%;
+    margin-bottom: 3%;
+}
+/* .input-section label {
+    position: relative;
+    left: -10%;
+} */
+.input-section input {
+    border: none;
+    background-color: white;
+    height: 25px;
+    
+}
+.mt-btn {
+    margin-top: 5%;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+ 

@@ -134,5 +134,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 로그인 성공후 이동하는 URL
-# TODO start로 바꾸기
-LOGIN_REDIRECT_URL = '/accounts/intro/'
+LOGIN_REDIRECT_URL = '/accounts/start/'
+LOGOUT_REDIRECT_URL = '/accounts/intro/'

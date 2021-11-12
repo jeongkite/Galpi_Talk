@@ -1,0 +1,32 @@
+{% extends '../base.html' %}
+{% block content %}
+<section>
+    <div class="header">
+        <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+        <h3>하루면담 구성</h3>
+    </div>
+    
+    <img src="{% static 'img/intro/info.png' %}" alt="">
+    
+    <h4>전체 구성은 다음과 같습니다.</h4>
+    <p>
+        Chapter 0 &nbsp;자기소개<br>
+        Chapter 1 &nbsp;이야기 필름<br>
+        Chapter 2 &nbsp;마음 살피기<br>
+        Chapter 3 &nbsp;생의 매듭 & 마지막 인사<br>
+    </p>
+    
+    <h4 class="info_title">주의 사항</h4>
+    <div class="info_box">
+        <p>[문답자에게만 발송되는 <strong>실물 책자 [GALPI, ME]에는 모든 문답이 수록</strong>됩니다.<br><br>
+            Chapter 1의 일부 문항은 리플렛 [즉음 포트폴리오]에 포함되는 문답자 분석 ‘ 무의식 X-Ray’의 통계에 이용됩니다.<br><br>
+            [하루면담]은 채팅 형식을 따르고 있지만, 채팅 말투보다는 <strong>수령인을 고려하며 작성</strong>하는 것을 권장합니다.<br><br>
+            <strong>문답 내용의 비밀보장</strong>을 위해, 등록한 내용은 별도의 맞춤법 검사나 수정 없이 <strong>작성한 그대로 포트폴리오에 입력됨</strong>을 유의 바랍니다.
+        </p>
+    </div>
+    
+    <a href="{% url '#' %}"><button type="button" class="btn dark-btn">도움말 보기</button></a>
+    <a href="{% url 'accounts:create_privacy' cn=1 %}"><button type="button" class="btn dark-btn">프로필 작성</button></a>
+</section>
+
+{% endblock %}

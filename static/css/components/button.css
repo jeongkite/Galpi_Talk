@@ -1,0 +1,25 @@
+.btn {
+    width: 80%;
+    height: 6vh;
+    border: none;
+    margin-bottom: 3%;
+    box-sizing: border-box;
+    border-radius: 3vh;
+}
+
+.dark-btn {
+    background: #332C28;
+    color: white;
+
+}
+.light-btn {
+    background: white;
+    color: #332C28;
+}
+
+.btn:active {
+    color: white;
+    background: #98A8D3;
+    /* border: 1px solid #98A8D3; */
+    
+}

@@ -1,13 +1,15 @@
-{% extends 'base.html' %}
+{% extends '../base.html' %}
 {% block content %}
+<section>
+    <h1>하루면담</h1>
+    <div>당신만의 이야기를</div>
+    <div>기록하는 웹 질문지</div>
+    
+    <a href="{% url 'talk:chap_bridge' cn=1 %}"><button type="button" class="btn dark-btn">시작하기</button></a>
+    <a href="{% url 'accounts:update_privacy' %}"><button type="button" class="btn light-btn">자기소개 수정하기</button></a>
+    
+    <a  class="question" href="{% url 'accounts:question' %}">문제가 생겼나요?</a>
+</section>
 
-<h1>하루면담</h1>
-<div>당신만의 이야기를</div>
-<div>기록하는 웹 질문지</div>
-
-<a href="{% url '#' %}"><button type="button" class="btn dark-btn">시작하기</button></a>
-<a href="{% url '#' %}"><button type="button" class="btn light-btn">자기소개 수정하기</button></a>
-
-<a href="">문제가 생겼나요?</a>
 
 {% endblock %}

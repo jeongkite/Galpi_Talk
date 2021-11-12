@@ -1,0 +1,21 @@
+{% extends '../base.html' %}
+{% block content %}
+
+{% if question %}
+    <div style="color: red;" class="your bubble">{{ question.content }}</div>
+{% else %}
+    {% for bubble in bubbles %}
+        <div style="color: red;" class="past your bubble">{{ bubble.0.content }}</div>
+        <div style="color: blue;" class="past my bubble">{{ bubble.1.content }}</div>
+    {% endfor %}
+{% endif %}
+{% if this_q %}
+    <div class="your bubble">{{ this_q }}</div>
+{% endif %}
+<form action="{% url 'talk:chap' qn=qn %}" method="POST">
+{% csrf_token %}
+<input type="text" id="answer" name="answer">
+<button class="send" type="submit"><img src="/static/img/icon/send-button.svg" alt=""></button>
+</form>
+
+{% endblock %}
