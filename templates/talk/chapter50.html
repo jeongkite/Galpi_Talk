@@ -1,5 +1,6 @@
 {% extends '../base.html' %}
 {% block content %}
+{% load regex_func %}
 
 <section>
     <form method="post" action="{% url 'talk:chapter50' %}">
@@ -7,8 +8,8 @@
         {% for i in '123456' %}
         <div class="each-contact">
             <div><strong>[{{i}}]</strong> 연락처 입력</div>
-            <input type="text" id="name{{i}}" name="name{{i}}" placeholder="김갈피" value="{{hellos.i.name}}">
-            <input type="text" id="contact{{i}}" name="contact{{i}}" placeholder="ex. 01012345678 or @example" value="{{hellos.i.contact}}">
+            <input type="text" id="name{{i}}" name="name{{i}}" placeholder="김갈피" value="{{hellos | get_name:i}}">
+            <input type="text" id="contact{{i}}" name="contact{{i}}" placeholder="ex. 01012345678 or @example" value="{{hellos | get_contact:i}}">
         </div>
         {% endfor %}
         <button type="submit">저장하기</button>

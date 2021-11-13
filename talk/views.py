@@ -1,7 +1,7 @@
 from django.http import response
 from django.shortcuts import get_object_or_404, redirect, render
 from talk.models import *
-from accounts.models import AccessCode
+from accounts.models import AccessCode, Address
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -13,16 +13,6 @@ def chap_bridge(request, cn):
 
 
 def chap_start(request, qn):
-    user_code = get_object_or_404(AccessCode, user=request.user)
-
-    try:
-        info = Info.objects.get(user=request.user)
-    except Info.DoesNotExist:
-        info = Info(user=request.user,
-                    address_num=int(user_code.access_code[0]),
-                    c_progress=1,
-                    q_progress=1)
-        info.save()
     question = get_object_or_404(Question, id=2)
 
     return render(request, 'talk/chap.html', {'question': question})
@@ -75,6 +65,7 @@ def chap(request, qn):
 def update_answer(request, rn):
     response = get_object_or_404(Response, pk=rn)
     question = get_object_or_404(Question, pk=response.question.id)
+    chapter = get_object_or_404(Chapter, pk=question.chapter.pk)
     info = request.user.info
 
     if request.method == "POST":
@@ -83,6 +74,7 @@ def update_answer(request, rn):
         response.save()
         return HttpResponseRedirect(reverse('talk:chap', args=[info.q_progress]))
     ctx = {
+        'chapter': chapter,
         'question': question,
         'response': response,
     }
@@ -94,11 +86,13 @@ def chapter50(request):
     hellos = LastHello.objects.filter(user=request.user)
     chapter = get_object_or_404(Chapter, pk=4)
     question = get_object_or_404(Question, pk=50)
+
     ctx = {
         'chapter': chapter,
         'question': question,
         'hellos': hellos,
-        'qn': 51,
+        'qn': 50,
+        'this_q': question,
     }
 
     if request.method == "POST":
@@ -112,44 +106,130 @@ def chapter50(request):
             info.q_progress += 1
             info.save()
 
-            return render(request, 'talk/chap.html', context=ctx)
+            return render(request, 'talk/chap50.html', context=ctx)
         else:
-            for i in range(1, len(hellos)):
-                hellos[i].name = request.POST['name' + str(i)]
-                hellos[i].contact = request.POST['contact' + str(i)]
+            for i in range(0, len(hellos)):
+                hellos[i].name = request.POST['name' + str(i+1)]
+                hellos[i].contact = request.POST['contact' + str(i+1)]
                 hellos[i].save()
-            return render(request, 'talk/chap.html', context=ctx)
+            return render(request, 'talk/chap50.html', context=ctx)
     else:
         return render(request, 'talk/chapter50.html', context=ctx)
 
 
 def chapter51(request):
     info = Info.objects.get(user=request.user)
-    responses = Response.objects.filter(user=request.user)
-    response = responses[0]
     chapter = get_object_or_404(Chapter, pk=4)
     question = get_object_or_404(Question, pk=51)
+    responses = Response.objects.filter(user=request.user, question=question)
+    response = None
+
+    if responses:
+        response = responses[0]
     ctx = {
         'chapter': chapter,
-        'question': question,
         'response': response,
+        'question': question,
         'qn': 51,
     }
 
+    if request.method == "POST":
+        if not responses:
+            answer = request.POST['answer']
+            response = Response(user=request.user, chapter=chapter,
+                                question=question, content=answer)
+            response.save()
+            ctx['response'] = response
+            info.q_progress = 50
+            info.c_progress = 5
+            info.save()
+            return render(request, 'talk/chap50.html', context=ctx)
+        else:
+            answer = request.POST['answer']
+            response.content = answer
+            response.save()
+            info.q_progress = 50
+            info.c_progress = 5
+            info.save()
+            ctx['response'] = response
+            return render(request, 'talk/chap50.html', context=ctx)
+    else:
+        return render(request, 'talk/chapter51.html', context=ctx)
+
+
+def write_last(request):
+    chapter = get_object_or_404(Chapter, pk=5)
+    question = get_object_or_404(Question, pk=52)
+    responses = Response.objects.filter(user=request.user, question=question)
+    response = None
+    info = Info.objects.get(user=request.user)
+    info.c_progress = 1
+    info.q_progress = 52
+    info.save()
+    if responses:
+        response = responses[0]
     if request.method == "POST":
         if not response:
             answer = request.POST['answer']
             response = Response(user=request.user, chapter=chapter,
                                 question=question, content=answer)
-            response.save()
-            info.q_progress = 50
-            info.c_progress = 4
-            info.save()
-            return render(request, 'talk/chap_bridge.html', {'cn': info.c_progress})
         else:
             answer = request.POST['answer']
             response.content = answer
-            response.save()
-            return render(request, 'talk/chap_bridge.html', {'cn': info.c_progress})
+        response.save()
+        return HttpResponseRedirect(reverse('talk:address'))
     else:
-        return render(request, 'talk/chapter51.html', context=ctx)
+        ctx = {
+            'chapter': chapter,
+            'response': response,
+            'question': question,
+        }
+        return render(request, 'talk/write_last.html', context=ctx)
+
+
+def address(request):
+    info = get_object_or_404(Info, user=request.user)
+    add_num = info.address_num
+    add_nums = ""
+    for i in range(0, add_num+1):
+        add_nums += str(i)
+    addresss = Address.objects.filter(user=request.user)
+    if request.method == "POST":
+        if not addresss:
+            address_arr = []
+            for i in range(0, add_num+1):
+                name = request.POST['name'+str(i)]
+                phone = request.POST['phone'+str(i)]
+                postal = request.POST['postal'+str(i)]
+                addy = request.POST['addy'+str(i)]
+
+                if (i == 0):
+                    address = Address(
+                        user=request.user, name=name, phone=phone, postal=postal, addy=addy, is_other=False)
+                else:
+                    address = Address(
+                        user=request.user, name=name, phone=phone, postal=postal, addy=addy, is_other=True)
+                address_arr.append(address)
+            Address.objects.bulk_create(address_arr)
+        else:
+            for i in range(0, add_num+1):
+                addresss[i].name = request.POST['name'+str(i)]
+                addresss[i].phone = request.POST['phone'+str(i)]
+                addresss[i].postal = request.POST['postal'+str(i)]
+                addresss[i].addy = request.POST['addy'+str(i)]
+                addresss[i].save()
+        return render(request, 'talk/final.html')
+    else:
+        ctx = {
+            'addresss': addresss,
+            'add_nums': add_nums
+        }
+        return render(request, 'talk/address.html', context=ctx)
+
+
+def final(request):
+    return render(request, 'talk/final.html')
+
+
+def chap5(request):
+    return render(request, 'talk/chap5.html')

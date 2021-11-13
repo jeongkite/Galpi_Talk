@@ -71,5 +71,5 @@ chapter_ani_4.addEventListener('complete', function () {
     location.href = '/talk/chap/50/'
 })
 chapter_ani_5.addEventListener('complete', function () {
-    location.href = '/talk/chap/52/'
+    location.href = '/talk/chap5/'
 })

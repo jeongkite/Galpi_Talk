@@ -1,0 +1,12 @@
+{% extends '../base.html' %}
+{% block content %}
+
+<section>
+    <form method="post" action="{% url 'talk:write_last' %}">
+        {% csrf_token %}
+        <input type="text" id="answer" name="answer" placeholder="남기고 싶은 말이 있나요?" value="{{response.content}}">
+        
+        <button type="submit">저장하기</button>
+    </form>
+</section>
+{% endblock %}

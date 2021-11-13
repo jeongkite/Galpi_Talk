@@ -1,0 +1,32 @@
+{% extends '../base.html' %}
+{% block content %}
+{% load regex_func %}
+
+
+<section>
+    <div class="header">
+        <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+        <h3>{{ chapter.title }}</h3>
+        
+        <a href="{% url 'talk:chap_bridge' cn=5 %}"><img src="/static/img/icon/Arrow-Next-Black.svg" alt=""></a>
+
+    </div>
+
+    <div class="your_bubble">
+        <img src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
+        <div style="color: red;" class="past your bubble">{{ question.content }}</div>
+        <img src="/static/img/icon/Star-Icon.svg" alt="">
+    </div>
+    <a href="{% url 'talk:chapter50'%}">연락처 수정하기</a>
+    <div class="your_bubble">
+        <img src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
+        <div style="color: red;" class="past your bubble">당신의 유언장을 작성해주세요.</div>
+        <img src="/static/img/icon/Star-Icon.svg" alt="">
+    </div>
+    {% if qn == 50 %}
+    <a href="{% url 'talk:chapter51'%}">유언장 쓰러가기</a>
+    {% elif qn == 51 %}
+    <a href="{% url 'talk:chapter51'%}">유언장 수정하기</a>
+    {% endif %}
+</section>
+{% endblock %}

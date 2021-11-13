@@ -1,0 +1,32 @@
+{% extends '../base.html' %}
+{% block content %}
+{% load regex_func %}
+
+<section>
+    <div class="header">
+        <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+        <h3>배송지 입력</h3>
+    </div>
+    <img src="/static/img/icon/text-2.svg" alt="">
+    <form method="post" action="{% url 'talk:address' %}">
+        {% csrf_token %}
+        {% for i in add_nums %}
+        <div class="each-address">
+            {% if forloop.first %}
+            <p>
+                문답자 본인의 주소를 작성해주세요.
+                소장용 책자 [GALPI, ME]와 굿즈를 배송합니다.
+            </p>
+            {% else %}
+            <div><strong>[{{i}}]</strong> 배송지 입력</div>
+            {% endif %}
+            <input type="text" id="name{{i}}" name="name{{i}}" placeholder="김갈피" value="">
+            <input type="text" id="phone{{i}}" name="phone{{i}}" placeholder="ex. 01012345678" value="">
+            <input type="text" id="postal{{i}}" name="postal{{i}}" placeholder="ex. 01234" value="">
+            <input type="text" id="addy{{i}}" name="addy{{i}}" placeholder="주소 전체를 입력하세요" value="">
+        </div>
+        {% endfor %}
+        <button type="submit">저장하기</button>
+    </form>
+</section>
+{% endblock %}

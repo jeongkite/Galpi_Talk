@@ -2,7 +2,7 @@
 {% block content %}
 {% load regex_func %}
 
-<section>
+<section class="chap_{{chapter.chap_num}}">
     <div class="header">
         <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
         <h3>{{ chapter.title }}</h3>
@@ -13,12 +13,12 @@
     {% endif %}
 
     {% if question %}
-        <div style="color: red;" class="your bubble">{{ question.content }}</div>
+        <div  class="your bubble">{{ question.content }}</div>
     {% else %}
         {% for bubble in bubbles %}
             <div class="your_bubble">
                 <img src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
-                <div style="color: red;" class="past your bubble">{{ bubble.0.content }}</div>
+                <div  class="past your bubble">{{ bubble.0.content }}</div>
                 {% if bubble.0.star %}
                 <img src="/static/img/icon/Star-Icon.svg" alt="">
                 {% endif %}
@@ -27,7 +27,7 @@
                 {% if bubble.1.content|regex_func %}
                 <img src="/static/img/choice/{{bubble.1.content}}.png" alt="">
                 {% else %}
-                <div style="color: blue;" class="past my bubble">{{ bubble.1.content }}</div>
+                <div class="past my bubble">{{ bubble.1.content }}</div>
                 {% endif %}
                 <a href="{% url 'talk:update_answer' bubble.1.id %}"><img src="/static/img/icon/Edit-Button.svg" alt=""></a>
             </div>

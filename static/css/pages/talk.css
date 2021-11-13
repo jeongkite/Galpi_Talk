@@ -1,0 +1,23 @@
+.chap_1 {
+    background-image: url("../../img/talk/Chapter1.svg");
+    background-size: 100vw;
+}
+
+.bubble {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+}
+.your {
+    border-radius: 2px 10px 10px 10px;
+    margin-left: 5%;
+}
+.my {
+    border-radius: 10px 2px 10px 10px;
+}
+.chap_1 .your {
+    background: #D6F5FC;
+}
+.chap_1 .my {
+    background: white;
+}
