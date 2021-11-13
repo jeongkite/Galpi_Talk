@@ -65,11 +65,11 @@ chapter_ani_2.addEventListener('complete', function () {
     location.href = '/talk/chap/29/'
 })
 chapter_ani_3.addEventListener('complete', function () {
-    location.href = '{% url "talk:chap" qn=41 %}'
+    location.href = '/talk/chap/40/'
 })
 chapter_ani_4.addEventListener('complete', function () {
-    location.href = '{% url "talk:chap" qn=50 %}'
+    location.href = '/talk/chap/50/'
 })
 chapter_ani_5.addEventListener('complete', function () {
-    location.href = '{% url "talk:chap" qn=52 %}'
+    location.href = '/talk/chap/52/'
 })

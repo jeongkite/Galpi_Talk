@@ -28,6 +28,9 @@ def chap_start(request, qn):
     return render(request, 'talk/chap.html', {'question': question})
 
 
+Chap = [1, 28, 40, 49]
+
+
 def chap(request, qn):
     info = Info.objects.get(user=request.user)
 
@@ -39,6 +42,7 @@ def chap(request, qn):
     bubbles = []
     for q in questions:
         this_response = q.response_set.filter(user=request.user)
+
         if this_response:
             item = []
             item.append(q)
@@ -48,13 +52,14 @@ def chap(request, qn):
     if request.method == "POST":
         answer = request.POST['answer']
         response = Response(user=request.user, chapter=chapter,
-                            question=questions[info.q_progress-1], content=answer)
+                            question=questions[info.q_progress-Chap[chapter.chap_num-1]], content=answer)
         response.save()
         info.q_progress += 1
+        info.save()
         if (info.q_progress == 28) or (info.q_progress == 40) or (info.q_progress == 49):
             info.c_progress += 1
+            info.save()
             return render(request, 'talk/chap_bridge.html', {'cn': info.c_progress})
-        info.save()
         return HttpResponseRedirect(reverse('talk:chap', args=[qn]))
 
     ctx = {
@@ -93,7 +98,7 @@ def chapter50(request):
         'chapter': chapter,
         'question': question,
         'hellos': hellos,
-        'qn': 50,
+        'qn': 51,
     }
 
     if request.method == "POST":
@@ -130,6 +135,7 @@ def chapter51(request):
         'response': response,
         'qn': 51,
     }
+
     if request.method == "POST":
         if not response:
             answer = request.POST['answer']

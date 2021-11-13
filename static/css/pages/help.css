@@ -6,16 +6,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 }
 
 .help-img {
-    height: 100vh;
+    width: 100vw;
     object-fit: contain;
-    width: 80%;
 }
 
 .help-icon {
-    padding: 5px;
+    padding: 14px;
     z-index: 10;
-    /* position: absolute; */
+}
+
+@media not all and (hover: hover) {
+    .help-icon {
+        position: absolute;
+    }
+    .help-back {
+        left: 20px;
+    }
+    .help-next {
+        right: 20px;
+    }
+}
+
+@media (hover: hover) {
+    section {
+        width: 500px;
+    }
 }

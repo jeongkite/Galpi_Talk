@@ -40,9 +40,9 @@
     <form action="{% url 'talk:chap' qn=qn %}" method="POST">
     {% csrf_token %}
     {% if this_q.id == 50 %}
-        <a href="{% url 'talk:chapter50' qn=qn %}">연락처 입력하기</a>
+        <a href="{% url 'talk:chapter50'%}">연락처 입력하기</a>
     {% elif this_q.id == 51 %}
-        <a href="{% url 'talk:chapter51' qn=qn %}">유언장 쓰러가기</a>
+        <a href="{% url 'talk:chapter51'%}">유언장 쓰러가기</a>
     {% elif this_q.q_type == 1  %}
         {% for choice in this_q.choice_set.all %}
             {% if choice.content|regex_func %}
