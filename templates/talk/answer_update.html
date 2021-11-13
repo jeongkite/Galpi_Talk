@@ -1,5 +1,6 @@
 {% extends '../base.html' %}
 {% block content %}
+{% load regex_func %}
 
 <section>
     <div class="header">
@@ -11,7 +12,11 @@
         {% csrf_token %}
         {% if question.choice_set.all %}
             {% for choice in question.choice_set.all %}
-            <button class=" " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
+                {% if choice.content|regex_func %}
+                <button class=" " name="answer" id="answer" value="{{ choice.content }}"><img src="/static/img/choice/{{choice.content}}.png" alt=""></button>
+                {% else %}
+                <button class=" " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
+                {% endif %}
             {% endfor %}
         {% else %}
             <input type="text" id="answer" name="answer" value="{{response.content}}">

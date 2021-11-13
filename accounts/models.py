@@ -9,7 +9,7 @@ class AccessCode(models.Model):
     access_code = models.CharField(max_length=100)
     is_used = models.BooleanField(default=False)
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, verbose_name="유저")
+        User, on_delete=models.CASCADE, verbose_name="유저", null=True, blank=True)
 
     def __str__(self):
         return self.access_code

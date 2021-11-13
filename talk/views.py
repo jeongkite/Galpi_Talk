@@ -57,9 +57,6 @@ def chap(request, qn):
         info.save()
         return HttpResponseRedirect(reverse('talk:chap', args=[qn]))
 
-    q = get_object_or_404(Question, id=13)
-    choices = q.choice_set.all()
-    print(choices)
     ctx = {
         'chapter': chapter,
         'bubbles': bubbles,
@@ -85,3 +82,13 @@ def update_answer(request, rn):
         'response': response,
     }
     return render(request, 'talk/answer_update.html', context=ctx)
+
+
+def chapter50(request, qn):
+    hellos = LastHello.objects.filter(user=request.user)
+    if not hellos:
+        pass
+
+
+def chapter51(request, qn):
+    pass

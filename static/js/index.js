@@ -1,5 +1,4 @@
 
-
 var chapter_ani_1 = bodymovin.loadAnimation({
     container: document.getElementById('chapter_ani_1'),
     renderer: 'svg',
@@ -58,3 +57,19 @@ var final_ani = bodymovin.loadAnimation({
     autoplay: true,
     path: '/static/js/animation/Final.json'
 });
+
+chapter_ani_1.addEventListener('complete', function () {
+    location.href = '/talk/chap/2/'
+});
+chapter_ani_2.addEventListener('complete', function () {
+    location.href = '/talk/chap/29/'
+})
+chapter_ani_3.addEventListener('complete', function () {
+    location.href = '{% url "talk:chap" qn=41 %}'
+})
+chapter_ani_4.addEventListener('complete', function () {
+    location.href = '{% url "talk:chap" qn=50 %}'
+})
+chapter_ani_5.addEventListener('complete', function () {
+    location.href = '{% url "talk:chap" qn=52 %}'
+})

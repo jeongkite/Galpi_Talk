@@ -1,103 +1,122 @@
 {% extends '../base.html' %}
 {% block content %}
 
-<form method="post" class="" action="{% url 'accounts:update_privacy' %}">
-  {% csrf_token %}
+<section class="privacy_sec">
+  <div class="header">
+    <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+    <h3>자기소개</h3>
+</div>
 
-  <p>
-    <label for="id_name">이름:</label>
-    <input type="text" name="name" maxlength="10" required="" id="id_name" placeholder="김갈피" value="{{ privacy.name }}"/>
-  </p>
-  <p>
-    <label for="id_birth">생년월일:</label>
-    <input type="text" name="birth" maxlength="8" required="" id="id_birth" placeholder="8자리 생년월일 ex. 20000125" value="{{ privacy.birth }}"/>
-  </p>
-  <p>
-    <label for="id_l_food1">01</label>
-    <input
-      type="text"
-      name="l_food1"
-      maxlength="10"
-      required=""
-      id="id_l_food1"
-      placeholder="ex. 피자"
-      value="{{ privacy.l_food1 }}"
-    />
-  </p>
-  <p>
-    <label for="id_l_food2">02</label>
-    <input
-      type="text"
-      name="l_food2"
-      maxlength="10"
-      required=""
-      id="id_l_food2"
-      placeholder="ex. 치킨"
-      value="{{ privacy.l_food2 }}"
-    />
-  </p>
-  <p>
-    <label for="id_l_food3">03</label>
-    <input
-      type="text"
-      name="l_food3"
-      maxlength="10"
-      required=""
-      id="id_l_food3"
-      placeholder="ex. 햄버거"
-      value="{{ privacy.l_food3 }}"
-    />
-  </p>
-  <p>
-    <label for="id_h_food1">01</label>
-    <input
-      type="text"
-      name="h_food1"
-      maxlength="10"
-      required=""
-      id="id_h_food1"
-      placeholder="ex. 피자"
-      value="{{ privacy.h_food1 }}"
-    />
-  </p>
-  <p>
-    <label for="id_h_food2">02</label>
-    <input
-      type="text"
-      name="h_food2"
-      maxlength="10"
-      required=""
-      id="id_h_food2"
-      placeholder="ex. 치킨"
-      value="{{ privacy.h_food2 }}"
-    />
-  </p>
-  <p>
-    <label for="id_h_food3">03</label>
-    <input
-      type="text"
-      name="h_food3"
-      maxlength="10"
-      required=""
-      id="id_h_food3"
-      placeholder="ex. 햄버거"
-      value="{{ privacy.h_food3 }}"
-    />
-  </p>
-  <p>
-    <label for="id_good">장점:</label>
-    <input type="text" name="good" maxlength="20" required="" id="id_good" placeholder="ex. 부지런하다" value="{{ privacy.good }}"/>
-  </p>
-  <p>
-    <label for="id_bad">단점:</label>
-    <input type="text" name="bad" maxlength="20" required="" id="id_bad" placeholder="ex. 게으르다" value="{{ privacy.bad }}"/>
-  </p>
-  <p>
-    <label for="id_hobby">취미:</label>
-    <input type="text" name="hobby" maxlength="20" required="" id="id_hobby" placeholder="수면" value="{{ privacy.hobby }}"/>
-  </p>
-
-  <button type="submit" class="btn dark-btn">저장하기</button>
-</form>
+  <form method="post" class="" action="{% url 'accounts:privacy' %}">
+    <div class="center-flex">
+      <table>
+      {% csrf_token %}
+      <tr class="input-section ">
+        <td><label for="id_name">이름</label></td>
+        <td><input type="text" name="name" maxlength="10" required="" id="id_name" placeholder="김갈피" value="{{ privacy.name }}"/></td>
+      </tr>
+      <tr class="input-section ">
+        <td><label for="id_birth">생년월일</label></td>
+        <td><input type="text" name="birth" maxlength="8" required="" id="id_birth" placeholder="8자리 생년월일 ex. 20000125" value="{{ privacy.birth }}"/></td>
+      </tr>
+      <tr >
+        <td colspan="2"><h4>좋아하는 음식 <span>(각 10자 제한)</span></h4></td>
+      </tr>
+      <tr class="input-section ">
+        <td><label for="id_l_food1">01</label></td>
+        <td><input
+          type="text"
+          name="l_food1"
+          maxlength="10"
+          required=""
+          id="id_l_food1"
+          placeholder="ex. 피자"
+          value="{{ privacy.l_food1 }}"
+        /></td>
+      </tr>
+      <tr class="input-section ">
+        <td><label for="id_l_food2">02</label></td>
+        <td><input
+          type="text"
+          name="l_food2"
+          maxlength="10"
+          required=""
+          id="id_l_food2"
+          placeholder="ex. 치킨"
+          value="{{ privacy.l_food2 }}"
+        /></td>
+      </tr>
+      <tr class="input-section ">
+        <td><label for="id_l_food3">03</label></td>
+        <td><input
+          type="text"
+          name="l_food3"
+          maxlength="10"
+          required=""
+          id="id_l_food3"
+          placeholder="ex. 햄버거"
+          value="{{ privacy.l_food3 }}"
+        /></td>
+      </tr>
+      <tr>
+        <td colspan="2"><h4>싫어하는 음식 <span>(각 10자 제한)</span></h4></td>
+      </tr>
+      <tr class="input-section ">
+        <td><label for="id_h_food1">01</label></td>
+        <td><input
+          type="text"
+          name="h_food1"
+          maxlength="10"
+          required=""
+          id="id_h_food1"
+          placeholder="ex. 피자"
+          value="{{ privacy.h_food1 }}"
+        /></td>
+      </tr>
+      <tr class="input-section ">
+        <td><label for="id_h_food2">02</label></td>
+        <td><input
+          type="text"
+          name="h_food2"
+          maxlength="10"
+          required=""
+          id="id_h_food2"
+          placeholder="ex. 치킨"
+          value="{{ privacy.h_food2 }}"
+        /></td>
+      </tr>
+      <tr class="input-section ">
+        <td><label for="id_h_food3">03</label></td>
+        <td><input
+          type="text"
+          name="h_food3"
+          maxlength="10"
+          required=""
+          id="id_h_food3"
+          placeholder="ex. 햄버거"
+          value="{{ privacy.h_food3 }}"
+        /></td>
+      </tr>
+      <tr>
+        <td colspan="2"><h4>나의… <span>(각 20자 제한)</span></h4></td>
+      </tr>
+      <tr class="input-section ">
+        <td><label for="id_good">장점</label></td>
+        <td><input type="text" name="good" maxlength="20" required="" id="id_good" placeholder="ex. 부지런하다" value="{{ privacy.good }}"/></td>
+      </tr>
+      <tr class="input-section ">
+        <td><label for="id_bad">단점</label></td>
+        <td><input type="text" name="bad" maxlength="20" required="" id="id_bad" placeholder="ex. 게으르다" value="{{ privacy.bad }}"/></td>
+      </tr>
+      <tr class="input-section ">
+        <td><label for="id_hobby">취미</label></td>
+        <td><input type="text" name="hobby" maxlength="20" required="" id="id_hobby" placeholder="수면" value="{{ privacy.hobby }}"/></td>
+      </tr>
+      
+    </table>
+    </div>
+    <button type="submit" class="btn dark-btn">저장하기</button>
+  </form>
+</section>
 
 {% endblock %}

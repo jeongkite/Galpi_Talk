@@ -1,0 +1,21 @@
+.privacy_sec {
+    /* background: rgb(248, 248, 248); */
+    height: 100%;
+}
+td {
+    font-family: NanumSquare;
+    font-size: 0.85rem;
+}
+td h4 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-family: NanumSquare;
+    font-size: 0.92rem;
+}
+td h4 span {
+    font-size: 0.82rem;
+    color: #999694;
+}
+label {
+    font-weight: bold;
+}

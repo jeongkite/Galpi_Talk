@@ -14,8 +14,10 @@
         {% else %}
         <button class="btn dark-btn" onclick="location.href='{% url 'accounts:login' %}'">로그인</button>
         {% endif %}
+        {% if not user.is_authenticated %}
         <button class="btn light-btn" onclick="location.href='{% url 'accounts:signup' %}'">회원가입</button>
-        
+        {% endif %}
+
         <a class="question" href="{% url 'accounts:question' %}">문제가 생겼나요?</a>
     </div>
 </section>

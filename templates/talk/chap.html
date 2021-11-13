@@ -1,5 +1,6 @@
 {% extends '../base.html' %}
 {% block content %}
+{% load regex_func %}
 
 <section>
     <div class="header">
@@ -16,14 +17,15 @@
     {% else %}
         {% for bubble in bubbles %}
             <div class="your_bubble">
+                <img src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
                 <div style="color: red;" class="past your bubble">{{ bubble.0.content }}</div>
                 {% if bubble.0.star %}
                 <img src="/static/img/icon/Star-Icon.svg" alt="">
                 {% endif %}
             </div>
             <div class="my_bubble">
-                {% if '1_[0-9]{2}_[1-4]' in bubble.1.content %}
-                <img src="/static/img/choice/{{bubble.1.content}}" alt="">
+                {% if bubble.1.content|regex_func %}
+                <img src="/static/img/choice/{{bubble.1.content}}.png" alt="">
                 {% else %}
                 <div style="color: blue;" class="past my bubble">{{ bubble.1.content }}</div>
                 {% endif %}
@@ -37,14 +39,17 @@
     {% endif %}
     <form action="{% url 'talk:chap' qn=qn %}" method="POST">
     {% csrf_token %}
-    {% if this_q.q_type == 1 %}
+    {% if this_q.id == 50 %}
+        <a href="{% url 'talk:chapter50' qn=qn %}">연락처 입력하기</a>
+    {% elif this_q.id == 51 %}
+        <a href="{% url 'talk:chapter51' qn=qn %}">유언장 쓰러가기</a>
+    {% elif this_q.q_type == 1  %}
         {% for choice in this_q.choice_set.all %}
-        {% if '1_[0-9]{2}_[1-4]' in choice.content %}
-        <button class=" " name="answer" id="answer" value="{{ choice.content }}"><img src="/static/img/choice/{{choice.content}}" alt=""></button>
-        
-        {% else %}
-        <button class=" " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
-        {% endif %}
+            {% if choice.content|regex_func %}
+            <button class=" " name="answer" id="answer" value="{{ choice.content }}"><img src="/static/img/choice/{{choice.content}}.png" alt=""></button>
+            {% else %}
+            <button class=" " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
+            {% endif %}
         {% endfor %}
     {% else %}
         <input type="text" id="answer" name="answer">

@@ -22,6 +22,7 @@ def signup(request):
                 message = "이미 사용된 인증코드입니다."
                 return render(request, 'accounts/signup.html', {'form': form, 'message': message})
             else:
+                form.save()
                 username = form.cleaned_data.get('username')
                 raw_password = form.cleaned_data.get('password1')
                 user = authenticate(username=username,
@@ -29,10 +30,10 @@ def signup(request):
                 access_code.is_used = True
                 access_code.user = user
                 access_code.save()
-                form.save()
-                login(request, user)  # 로그인
+                login(request, user,
+                      backend='django.contrib.auth.backends.ModelBackend')
 
-                return redirect('accounts:intro')
+                return redirect('accounts:info')
     else:
         form = UserForm()
     return render(request, 'accounts/signup.html', {'form': form})
@@ -50,38 +51,46 @@ def info(request):
     return render(request, 'accounts/info.html')
 
 
+def help1(request):
+    return render(request, 'accounts/help1.html')
+
+
+def help2(request):
+    return render(request, 'accounts/help2.html')
+
+
+def help3(request):
+    return render(request, 'accounts/help3.html')
+
+
+def help4(request):
+    return render(request, 'accounts/help4.html')
+
+
 def question(request):
     return render(request, 'accounts/question.html')
 
 
-def create_privacy(request):
+def privacy(request):
+    try:
+        privacy = get_object_or_404(Privacy, user=request.user)
+    except:
+        privacy = -1
     if request.method == "POST":
-        form = PrivacyForm(request.POST)
+        if privacy == -1:
+            form = PrivacyForm(request.POST)
+        else:
+            form = PrivacyForm(request.POST, instance=privacy)
         if form.is_valid():
             privacy = form.save(commit=False)
             privacy.user = request.user
             privacy.save()
             return redirect("talk:chap_bridge", cn=1)
     else:
-        form = PrivacyForm()
+        if privacy == -1:
+            form = PrivacyForm()
+        else:
+            form = PrivacyForm(instance=privacy)
 
-    ctx = {"form": form}
+    ctx = {"form": form, 'privacy': privacy}
     return render(request, "accounts/privacy_form.html", ctx)
-
-
-# 만약에 create privacy를 두 번 하면??
-def update_privacy(request):
-    privacy = get_object_or_404(Privacy, user=request.user)
-
-    print(privacy)
-    print(privacy.name)
-    if request.method == "POST":
-        form = PrivacyForm(request.POST, instance=privacy)
-        if form.is_valid():
-            new_privacy = form.save(commit=False)
-            new_privacy.save()
-            return redirect('accounts:start')
-    else:
-        form = PrivacyForm(instance=privacy)
-    context = {'form': form, 'privacy': privacy}
-    return render(request, 'accounts/privacy_form.html', context)
