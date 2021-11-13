@@ -1,7 +1,27 @@
 {% extends '../base.html' %}
 {% block content %}
 
-<a href="{% url 'talk:chap' qn=2 %}">talk:chap</a>
-<div class="" id="chapter_ani_{{cn}}"></div>
+<section class="chapter_ani_sec">
+    <a  href="{% url 'talk:chap' qn=2 %}">talk:chap</a>
+    <div class="chapter_ani" id="chapter_ani_{{cn}}"></div>
+</section>
 
+
+<script>
+    chapter_ani_1.addEventListener('complete', function(){
+        window.location.href='{% url "talk:chap" qn=2 %}'
+    });
+    // chapter_ani_2.addEventListener('complete', function(){
+    //     location.href='{% url "talk:chap" qn=29 %}'
+    // })
+    // chapter_ani_3.addEventListener('complete', function(){
+    //     location.href='{% url "talk:chap" qn=41 %}'
+    // })
+    // chapter_ani_4.addEventListener('complete', function(){
+    //     location.href='{% url "talk:chap" qn=50 %}'
+    // })
+    // chapter_ani_5.addEventListener('complete', function(){
+    //     location.href='{% url "talk:chap" qn=52 %}'
+    // })
+</script>
 {% endblock %}

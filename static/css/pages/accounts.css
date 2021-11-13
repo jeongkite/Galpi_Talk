@@ -73,7 +73,7 @@ h1 {
     border-radius: 10px;
     box-sizing: border-box;
     width: 80%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
 
 }
 .info_box p {
@@ -92,12 +92,25 @@ form {
 }
 
 .input-section {
-    padding: 3% 5%;
+    margin-bottom: 3%;
     border-radius: 10px;
     border: 1px solid #F5F5F5;
+
+}
+
+.input-section td:first-child {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    padding-left: 5%;
     box-sizing: border-box;
-    width: 80%;
-    margin-bottom: 3%;
+    height: 10%;
+}
+.input-section td:last-child {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    box-sizing: border-box;
+    /* width: 80%; */
+    height: 10%;
 }
 /* .input-section label {
     position: relative;
@@ -116,4 +129,8 @@ form {
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px white inset;
 }
- 
+table {
+    width: 85%;
+    border-collapse:separate; 
+    border-spacing: 0 1em;
+}

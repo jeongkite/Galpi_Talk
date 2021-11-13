@@ -5,7 +5,7 @@ var chapter_ani_1 = bodymovin.loadAnimation({
     renderer: 'svg',
     loop: false,
     autoplay: true,
-    path: '/static/js/animation/chapter1.json'
+    path: '/static/js/animation/chapter1.json',
 });
 var chapter_ani_2 = bodymovin.loadAnimation({
     container: document.getElementById('chapter_ani_2'),

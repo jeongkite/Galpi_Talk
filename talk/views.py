@@ -1,5 +1,5 @@
 from django.http import response
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from talk.models import *
 from accounts.models import AccessCode
 from django.http import HttpResponseRedirect
@@ -29,12 +29,13 @@ def chap_start(request, qn):
 
 
 def chap(request, qn):
-    info = request.user.info
+    info = Info.objects.get(user=request.user)
 
     chapter = get_object_or_404(Chapter, chap_num=info.c_progress)
-    questions = Question.objects.filter(id__lte=int(info.q_progress)+1)
+    questions = Question.objects.filter(
+        id__lte=int(info.q_progress)+1, chapter=chapter)
     qn = questions.last().id
-    this_q = get_object_or_404(Question, id=qn).content
+    this_q = get_object_or_404(Question, id=qn)
     bubbles = []
     for q in questions:
         this_response = q.response_set.filter(user=request.user)
@@ -52,9 +53,13 @@ def chap(request, qn):
         info.q_progress += 1
         if (info.q_progress == 28) or (info.q_progress == 40) or (info.q_progress == 49):
             info.c_progress += 1
+            return render(request, 'talk/chap_bridge.html', {'cn': info.c_progress})
         info.save()
         return HttpResponseRedirect(reverse('talk:chap', args=[qn]))
 
+    q = get_object_or_404(Question, id=13)
+    choices = q.choice_set.all()
+    print(choices)
     ctx = {
         'chapter': chapter,
         'bubbles': bubbles,
@@ -63,3 +68,20 @@ def chap(request, qn):
     }
 
     return render(request, 'talk/chap.html', context=ctx)
+
+
+def update_answer(request, rn):
+    response = get_object_or_404(Response, pk=rn)
+    question = get_object_or_404(Question, pk=response.question.id)
+    info = request.user.info
+
+    if request.method == "POST":
+        answer = request.POST['answer']
+        response.content = answer
+        response.save()
+        return HttpResponseRedirect(reverse('talk:chap', args=[info.q_progress]))
+    ctx = {
+        'question': question,
+        'response': response,
+    }
+    return render(request, 'talk/answer_update.html', context=ctx)

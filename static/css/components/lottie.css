@@ -2,3 +2,16 @@
     width: 60%;
     margin-top: 20%;
 }
+
+.chapter_ani {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    box-sizing: border-box;
+    
+}
+
+.chapter_ani_sec {
+    max-height: 100vh;
+    background: linear-gradient();
+}

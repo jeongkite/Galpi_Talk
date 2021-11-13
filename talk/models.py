@@ -48,3 +48,15 @@ class Response(models.Model):
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, verbose_name="해당 질문")
     content = models.CharField(max_length=900, verbose_name="답변 내용")
+
+
+class LastHello(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="유저", null=True
+    )
+    chapter = models.ForeignKey(
+        Chapter, on_delete=models.CASCADE, verbose_name="해당 챕터")
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, verbose_name="해당 질문")
+    name = models.CharField(max_length=10, verbose_name="마지막인사 이름")
+    contact = models.CharField(max_length=20, verbose_name="마지막인사 연락처")

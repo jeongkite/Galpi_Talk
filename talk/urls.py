@@ -7,4 +7,5 @@ app_name = 'talk'
 urlpatterns = [
     path('chap_bridge/<int:cn>/', views.chap_bridge, name='chap_bridge'),
     path('chap/<int:qn>/', views.chap, name="chap"),
+    path('update/<int:rn>/', views.update_answer, name="update_answer"),
 ]

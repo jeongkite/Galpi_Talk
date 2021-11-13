@@ -1,0 +1,22 @@
+{% extends '../base.html' %}
+{% block content %}
+
+<section>
+    <div class="header">
+        <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+        <h3>{{ question.content }}</h3>
+    </div>
+
+    <form action="{% url 'talk:update_answer' rn=response.id %}" method="POST">
+        {% csrf_token %}
+        {% if question.choice_set.all %}
+            {% for choice in question.choice_set.all %}
+            <button class=" " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
+            {% endfor %}
+        {% else %}
+            <input type="text" id="answer" name="answer" value="{{response.content}}">
+            <button class="send" type="submit"><img src="/static/img/icon/send-button.svg" alt=""></button>
+        {% endif %}
+        </form>
+</section>
+{% endblock %}

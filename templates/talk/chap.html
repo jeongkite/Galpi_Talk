@@ -1,21 +1,57 @@
 {% extends '../base.html' %}
 {% block content %}
 
-{% if question %}
-    <div style="color: red;" class="your bubble">{{ question.content }}</div>
-{% else %}
-    {% for bubble in bubbles %}
-        <div style="color: red;" class="past your bubble">{{ bubble.0.content }}</div>
-        <div style="color: blue;" class="past my bubble">{{ bubble.1.content }}</div>
-    {% endfor %}
-{% endif %}
-{% if this_q %}
-    <div class="your bubble">{{ this_q }}</div>
-{% endif %}
-<form action="{% url 'talk:chap' qn=qn %}" method="POST">
-{% csrf_token %}
-<input type="text" id="answer" name="answer">
-<button class="send" type="submit"><img src="/static/img/icon/send-button.svg" alt=""></button>
-</form>
+<section>
+    <div class="header">
+        <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+        <h3>{{ chapter.title }}</h3>
+    </div>
+
+    {% if chapter.content %}
+        <div class="notice">{{ chapter.content }}</div>
+    {% endif %}
+
+    {% if question %}
+        <div style="color: red;" class="your bubble">{{ question.content }}</div>
+    {% else %}
+        {% for bubble in bubbles %}
+            <div class="your_bubble">
+                <div style="color: red;" class="past your bubble">{{ bubble.0.content }}</div>
+                {% if bubble.0.star %}
+                <img src="/static/img/icon/Star-Icon.svg" alt="">
+                {% endif %}
+            </div>
+            <div class="my_bubble">
+                {% if '1_[0-9]{2}_[1-4]' in bubble.1.content %}
+                <img src="/static/img/choice/{{bubble.1.content}}" alt="">
+                {% else %}
+                <div style="color: blue;" class="past my bubble">{{ bubble.1.content }}</div>
+                {% endif %}
+                <a href="{% url 'talk:update_answer' bubble.1.id %}"><img src="/static/img/icon/Edit-Button.svg" alt=""></a>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if this_q %}
+        <div class="your bubble">{{ this_q.content }}</div>
+    {% endif %}
+    <form action="{% url 'talk:chap' qn=qn %}" method="POST">
+    {% csrf_token %}
+    {% if this_q.q_type == 1 %}
+        {% for choice in this_q.choice_set.all %}
+        {% if '1_[0-9]{2}_[1-4]' in choice.content %}
+        <button class=" " name="answer" id="answer" value="{{ choice.content }}"><img src="/static/img/choice/{{choice.content}}" alt=""></button>
+        
+        {% else %}
+        <button class=" " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
+        {% endif %}
+        {% endfor %}
+    {% else %}
+        <input type="text" id="answer" name="answer">
+        <button class="send" type="submit"><img src="/static/img/icon/send-button.svg" alt=""></button>
+    {% endif %}
+    </form>
+</section>
+
 
 {% endblock %}
