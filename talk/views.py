@@ -84,11 +84,66 @@ def update_answer(request, rn):
     return render(request, 'talk/answer_update.html', context=ctx)
 
 
-def chapter50(request, qn):
+def chapter50(request):
+    info = Info.objects.get(user=request.user)
     hellos = LastHello.objects.filter(user=request.user)
-    if not hellos:
-        pass
+    chapter = get_object_or_404(Chapter, pk=4)
+    question = get_object_or_404(Question, pk=50)
+    ctx = {
+        'chapter': chapter,
+        'question': question,
+        'hellos': hellos,
+        'qn': 50,
+    }
+
+    if request.method == "POST":
+        if not hellos:
+            arr = []
+            for i in range(1, 7):
+                arr.append(LastHello(user=request.user, chapter=chapter, question=question,
+                                     name=request.POST['name' + str(i)], contact=request.POST['contact' + str(i)]))
+
+            hello = LastHello.objects.bulk_create(arr)
+            info.q_progress += 1
+            info.save()
+
+            return render(request, 'talk/chap.html', context=ctx)
+        else:
+            for i in range(1, len(hellos)):
+                hellos[i].name = request.POST['name' + str(i)]
+                hellos[i].contact = request.POST['contact' + str(i)]
+                hellos[i].save()
+            return render(request, 'talk/chap.html', context=ctx)
+    else:
+        return render(request, 'talk/chapter50.html', context=ctx)
 
 
-def chapter51(request, qn):
-    pass
+def chapter51(request):
+    info = Info.objects.get(user=request.user)
+    responses = Response.objects.filter(user=request.user)
+    response = responses[0]
+    chapter = get_object_or_404(Chapter, pk=4)
+    question = get_object_or_404(Question, pk=51)
+    ctx = {
+        'chapter': chapter,
+        'question': question,
+        'response': response,
+        'qn': 51,
+    }
+    if request.method == "POST":
+        if not response:
+            answer = request.POST['answer']
+            response = Response(user=request.user, chapter=chapter,
+                                question=question, content=answer)
+            response.save()
+            info.q_progress = 50
+            info.c_progress = 4
+            info.save()
+            return render(request, 'talk/chap_bridge.html', {'cn': info.c_progress})
+        else:
+            answer = request.POST['answer']
+            response.content = answer
+            response.save()
+            return render(request, 'talk/chap_bridge.html', {'cn': info.c_progress})
+    else:
+        return render(request, 'talk/chapter51.html', context=ctx)

@@ -1,0 +1,12 @@
+{% extends '../base.html' %}
+{% block content %}
+
+<section>
+    <form method="post" action="{% url 'talk:chapter51' %}">
+        {% csrf_token %}
+        <input type="text" id="answer" name="answer" placeholder="유언장 작성" value="{{response.content}}">
+        
+        <button type="submit">저장하기</button>
+    </form>
+</section>
+{% endblock %}

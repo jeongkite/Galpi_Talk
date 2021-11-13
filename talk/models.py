@@ -26,7 +26,7 @@ class Question(models.Model):
         Chapter, on_delete=models.CASCADE, verbose_name="해당 챕터")
     content = models.TextField(verbose_name="질문 내용")
     limit = models.IntegerField(verbose_name="글자수", null=True, blank=True)
-    q_type = models.IntegerField(verbose_name="질문 타입")  # 0:주관, 1:객관
+    q_type = models.IntegerField(verbose_name="질문 타입", default=0)  # 0:주관, 1:객관
     star = models.BooleanField(default=False, verbose_name="별표")
 
 
