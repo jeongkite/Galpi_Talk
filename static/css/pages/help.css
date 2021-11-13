@@ -11,6 +11,7 @@
 .help-img {
     height: 100vh;
     object-fit: contain;
+    width: 80%;
 }
 
 .help-icon {
