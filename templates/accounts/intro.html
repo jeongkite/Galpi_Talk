@@ -10,7 +10,7 @@
         
         {% if user.is_authenticated %}
         <span>{{ user.username }}</span>
-        <button class="btn dark-btn" onclick="location.href='{% url 'accounts:start' %}'">시작하기</button>
+        <button class="btn dark-btn" onclick="location.href='{% url "talk:chap_bridge" cn=1%}'">시작하기</button>
         <button class="btn light-btn" onclick="location.href='{% url "accounts:logout" %}'">로그아웃</button>
         {% else %}
         <button class="btn dark-btn" onclick="location.href='{% url 'accounts:login' %}'">로그인</button>

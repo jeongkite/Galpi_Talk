@@ -3,6 +3,7 @@ from django.core.checks import messages
 from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
 from accounts.forms import PrivacyForm, UserForm
 from accounts.models import AccessCode, Privacy
+from talk.models import Info
 
 
 def signup(request):
@@ -30,6 +31,17 @@ def signup(request):
                 access_code.is_used = True
                 access_code.user = user
                 access_code.save()
+                user_code = get_object_or_404(AccessCode, user=user)
+
+                try:
+                    info = Info.objects.get(user=user)
+                except Info.DoesNotExist:
+                    info = Info(user=user,
+                                address_num=int(user_code.access_code[0]),
+                                c_progress=1,
+                                q_progress=1)
+                info.save()
+
                 login(request, user,
                       backend='django.contrib.auth.backends.ModelBackend')
 
