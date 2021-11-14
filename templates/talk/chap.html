@@ -20,6 +20,11 @@
     {% endif %}
 
     {% if question %}
+    {% with question|split as contentNs %}
+        {% for contentN in contentNs  %}
+            <div  class="past your bubble">{{ contentN }}</div>
+        {% endfor %}
+    {% endwith %}
         <div  class="your bubble">{{ question.content }}</div>
     {% else %}
         {% for bubble in bubbles %}
@@ -67,7 +72,8 @@
         {% endfor %}
     {% else %}
     <div class="chapter-form">
-        <input type="text" id="answer" name="answer">
+        <input maxlength="{{this_q.limit}}" type="text" id="answer" name="answer" onkeypress="countLength(this, {{this_q.limit}})">
+        <input type="text" id="limit" readonly><br>
         <button class="send" type="submit"><img src="/static/img/icon/send-button.svg" alt=""></button>
     </div>
     {% endif %}

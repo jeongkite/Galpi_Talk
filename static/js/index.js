@@ -81,3 +81,7 @@ function chap_back(chap) {
 function chap_next(chap) {
     location.href = chapArray[chap + 1];
 }
+
+function countLength(tags, maxLength) {
+    document.getElementById("limit").value = (maxLength - tags.value.length)
+}

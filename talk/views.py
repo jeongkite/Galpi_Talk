@@ -23,7 +23,7 @@ Chap = [1, 28, 40, 49]
 
 def chap(request, qn):
     info = Info.objects.get(user=request.user)
-    if qn == 2:
+    if (qn == 2) and (info.q_progress > 50):
         info.c_progress = 1
     elif qn == 29:
         info.c_progress = 2
