@@ -248,7 +248,8 @@ def address(request):
     else:
         ctx = {
             'addresss': addresss,
-            'add_nums': add_nums
+            'add_nums': add_nums,
+            'add_num': add_num,
         }
         return render(request, 'talk/address.html', context=ctx)
 
