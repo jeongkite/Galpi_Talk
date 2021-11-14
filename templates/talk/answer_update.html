@@ -7,6 +7,9 @@
         <a href="{% url 'talk:chap' cn=chapter.id %}"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
         <h3>{{ chapter.title }}</h3>
     </div>
+    {% if question.id == 50 %}
+    <div  class="update-q-title">당신의 유언장을 작성해주세요.<br>(참고 : 시신처리, 물건처분, 내가 죽은 후 꼭 지켜졌으면 하는 일 등)</div>
+    {% else %}
     {% with question.content|split as contentNs %}
         {% for contentN in contentNs  %}
         {% if forloop.last %}
@@ -14,6 +17,7 @@
         {% endif %}
         {% endfor %}
     {% endwith %}
+    {% endif %}
     {% if question.q_type == 0 %}
     <input type="text" id="limit" readonly placeholder="{{question.limit}}"><br>
     {% endif %}

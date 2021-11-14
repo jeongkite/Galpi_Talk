@@ -51,3 +51,7 @@
     color: #999694;
     font-size: 0.82rem;
 }
+
+.con-title:first {
+    margin-bottom: 10%;
+}
