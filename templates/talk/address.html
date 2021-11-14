@@ -26,7 +26,6 @@
                 </div>
                 {% else %}
                 <div class="con-title"><strong>[{{forloop.counter0}}]</strong> 배송지 입력</div>
-                <div>▼</div>
                 {% endif %}
                 <input type="text" id="name{{forloop.counter0}}" name="name{{forloop.counter0}}" placeholder="문답자 본인 이름" value="{{add.name}}">
                 <input type="text" id="phone{{forloop.counter0}}" name="phone{{forloop.counter0}}" placeholder="연락처 ex. 01012345678" value="{{add.phone}}">
