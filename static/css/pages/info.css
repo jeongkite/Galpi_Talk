@@ -52,6 +52,6 @@
     font-size: 0.82rem;
 }
 
-.con-title:first-child {
-    margin-bottom: 10%;
+.con-title{
+    margin-top: 10%
 }
