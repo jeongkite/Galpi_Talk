@@ -25,11 +25,11 @@ def chap(request, qn):
     info = Info.objects.get(user=request.user)
     if (qn == 2) and (info.q_progress > 50):
         info.c_progress = 1
-    elif qn == 29:
+    elif (qn == 29) and (info.q_progress > 50):
         info.c_progress = 2
-    elif qn == 40:
+    elif (qn == 40) and (info.q_progress > 50):
         info.c_progress = 3
-    elif qn == 50:
+    elif (qn == 50) and (info.q_progress > 50):
         info.c_progress = 4
     info.save()
 

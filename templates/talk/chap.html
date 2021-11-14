@@ -20,12 +20,7 @@
     {% endif %}
 
     {% if question %}
-    {% with question|split as contentNs %}
-        {% for contentN in contentNs  %}
-            <div  class="past your bubble">{{ contentN }}</div>
-        {% endfor %}
-    {% endwith %}
-        <div  class="your bubble">{{ question.content }}</div>
+        
     {% else %}
         {% for bubble in bubbles %}
             <div class="your_bubble">
@@ -51,9 +46,14 @@
     {% endif %}
 
     {% if this_q %}
+    
     <div class="your_bubble">
         <img class="your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
-        <div class="your bubble">{{ this_q.content }}</div>
+        {% with this_q.content|split as contentNs %}
+            {% for contentN in contentNs  %}
+                <div  class="your bubble">{{ contentN }}</div>
+            {% endfor %}
+        {% endwith %}
     </div>
     {% endif %}
     <form action="{% url 'talk:chap' qn=qn %}" method="POST">
