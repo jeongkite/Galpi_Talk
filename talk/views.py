@@ -35,12 +35,12 @@ def chap(request, cn):
             bubbles.append(item)
 
     if request.method == "POST":
-        info.q_progress += 1
-        info.save()
         answer = request.POST['answer']
         response = Response(user=request.user, chapter=chapter,
                             question=questions[info.q_progress-Chap[chapter.chap_num-1]], content=answer)
         response.save()
+        info.q_progress += 1
+        info.save()
         if (info.q_progress == 28) or (info.q_progress == 40) or (info.q_progress == 49) or (info.q_progress == 51):
             info.c_progress += 1
             info.save()
@@ -202,7 +202,7 @@ def address(request):
     addresss = Address.objects.filter(user=request.user)
     if request.method == "POST":
         info.is_done = True
-        info.save()
+        info.save
         if not addresss:
             address_arr = []
             for i in range(0, add_num+1):

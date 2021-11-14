@@ -7,29 +7,44 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.help-1 {
+    background-image: url(/static/img/help/help_1.png);
+}
+.help-2 {
+    background-image: url(/static/img/help/help_2.png);
+}
+.help-3 {
+    background-image: url(/static/img/help/help_3.png);
+}
+.help-4 {
+    background-image: url(/static/img/help/help_4.png);
 }
 
 .help-img {
-    width: 100vw;    
+    height: 100vh;    
     object-fit: contain;
 }
 
 .help-icon {
     padding: 14px;
-    z-index: 10;
     border-radius: 50%;
     background-color: white;
 }
 
 @media not all and (hover: hover) {
-    .help-icon {
-        position: absolute;
+    .help-img {
+        width: 100vw;
     }
     .help-back {
-        left: 20px;
+        margin-right: 27%;
     }
     .help-next {
-        right: 20px;
+        margin-left: 27%;
     }
 }
 
@@ -42,10 +57,10 @@
         box-sizing: border-box;
     }
     .help-back {
-        margin-left: 20px;
+        margin-right: 30%;
     }
     .help-next {
-        margin-right: 20px;
+        margin-left: 30%;
     }
 }
 
