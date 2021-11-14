@@ -28,7 +28,7 @@
                 <input type="text" id="phone{{forloop.counter0}}" name="phone{{forloop.counter0}}" placeholder="연락처 ex. 01012345678" value="{{add.phone}}">
                 <input type="text" id="postal{{forloop.counter0}}" name="postal{{forloop.counter0}}" placeholder="우편번호 ex. 01234" value="{{add.postal}}">
                 <input type="text" id="addy{{forloop.counter0}}" name="addy{{forloop.counter0}}" placeholder="행정구역 / 도로명 주소 / 상세주소 를 입력해주세요." value="{{add.addy}}">
-                <div>ex. 서울특별시 중구 / 세종대로 1200 / ㅇㅇ동 ㅇㅇ호</div>
+                <div class="gray">ex. 서울특별시 중구 / 세종대로 1200 / ㅇㅇ동 ㅇㅇ호</div>
                 </div>
             {% endfor %}
             {% elif add_nums %}
@@ -48,7 +48,7 @@
                 <input type="text" id="phone{{i}}" name="phone{{i}}" placeholder="연락처 ex. 01012345678" value="">
                 <input type="text" id="postal{{i}}" name="postal{{i}}" placeholder="우편번호 ex. 01234" value="">
                 <input type="text" id="addy{{i}}" name="addy{{i}}" placeholder="행정구역 / 도로명 주소 / 상세주소 를 입력해주세요." value="">
-                <div>ex. 서울특별시 중구 / 세종대로 1200 / ㅇㅇ동 ㅇㅇ호</div>
+                <div class="gray">ex. 서울특별시 중구 / 세종대로 1200 / ㅇㅇ동 ㅇㅇ호</div>
                 </div>
             {% endfor %}
             {% endif %}

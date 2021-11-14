@@ -18,8 +18,14 @@
         <div class="notice bubble">{{ chapter.content }}</div>
     </div>
     {% endif %}
+    {% if chapter.chap_num == 4 %}
+    <div class="my_bubble">
+        <a class="past my bubble" href="{% url 'talk:chapter49'%}">연락처 입력하기</a>
+    </div>
+    {% endif %}
 
     {% if question %}
+
         
     {% else %}
         {% for bubble in bubbles %}
@@ -70,11 +76,8 @@
     {% endif %}
     <form id="last" action="{% url 'talk:chap' cn=cn %}" method="POST">
     {% csrf_token %}
-    {% if this_q.id == 49 and cn == 4 %}
-    <div class="my_bubble">
-        <a class="my bubble" href="{% url 'talk:chapter49'%}">연락처 입력하기</a>
-    </div>
-    {% elif this_q.id == 50 and cn == 4%}
+    
+    {% if this_q.id == 50 and chapter.chap_num == 4%}
     <div class="my_bubble">
         <a class="my bubble" href="{% url 'talk:chapter49'%}">연락처 입력하기</a>
     </div>

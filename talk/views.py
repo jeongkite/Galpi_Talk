@@ -55,6 +55,7 @@ def chap(request, cn):
             'bubbles': bubbles,
             'cn': info.c_progress,
             'is_done': info.is_done,
+            'info': info,
         }
     else:
         ctx = {
@@ -63,6 +64,7 @@ def chap(request, cn):
             'cn': info.c_progress,
             'this_q': this_q,
             'is_done': info.is_done,
+            'info': info,
         }
 
     return render(request, 'talk/chap.html', context=ctx)
@@ -116,6 +118,7 @@ def chapter49(request):
         'qn': 49,
         'this_q': question,
         'cn': chapter.id,
+        'info': info,
     }
 
     if request.method == "POST":
