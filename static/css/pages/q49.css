@@ -1,4 +1,26 @@
+.update {
+    height: 100%;
+}
 .add-box {
     background: #F5F5F5;
     margin-top: 10%;
+}
+
+.con-title {
+    font-weight: bold;
+    font-size: 0.87rem;
+    margin-top: 5%;
+    margin-bottom: 3%;
+}
+.con-title strong {
+    color: #98A8D3;
+}
+.each-con input {
+    background: #FFFFFF;
+    border-radius: 10px;
+    border: none;
+    width: 80%;
+    height: 4vh;
+    margin-bottom: 2%;
+    padding: 10px 15px;
 }

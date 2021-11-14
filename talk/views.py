@@ -81,10 +81,25 @@ def chapter49(request):
     hellos = LastHello.objects.filter(user=request.user)
     chapter = get_object_or_404(Chapter, pk=4)
     question = get_object_or_404(Question, pk=49)
+    if info.is_done == True:
+        questions = Question.objects.filter(chapter=chapter)
+    else:
+        questions = Question.objects.filter(
+            id__lte=int(info.q_progress), chapter=chapter)
+    this_q = questions.last()
+    bubbles = []
+    for q in questions:
+        this_response = q.response_set.filter(user=request.user)
+        if this_response:
+            item = []
+            item.append(q)
+            item.append(this_response[0])
+            bubbles.append(item)
 
     ctx = {
         'chapter': chapter,
         'question': question,
+        'bubbles': bubbles,
         'hellos': hellos,
         'qn': 49,
         'this_q': question,
@@ -98,16 +113,18 @@ def chapter49(request):
                                      name=request.POST['name' + str(i)], contact=request.POST['contact' + str(i)]))
 
             hello = LastHello.objects.bulk_create(arr)
-            info.q_progress += 1
+            info.q_progress = 50
             info.save()
 
-            return render(request, 'talk/chap49.html', context=ctx)
+            return render(request, 'talk/chapter49.html', context=ctx)
         else:
             for i in range(0, len(hellos)):
                 hellos[i].name = request.POST['name' + str(i+1)]
                 hellos[i].contact = request.POST['contact' + str(i+1)]
                 hellos[i].save()
-            return render(request, 'talk/chap49.html', context=ctx)
+                info.q_progress = 50
+                info.save()
+            return render(request, 'talk/chapter49.html', context=ctx)
     else:
         return render(request, 'talk/chapter49.html', context=ctx)
 
@@ -140,7 +157,7 @@ def chapter50(request):
         info.q_progress = 51
         info.c_progress = 5
         info.save()
-        return render(request, 'talk/chap50.html', context=ctx)
+        return render(request, 'talk/chapter50.html', context=ctx)
     else:
         return render(request, 'talk/chapter51.html', context=ctx)
 

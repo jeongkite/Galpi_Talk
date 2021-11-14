@@ -19,18 +19,18 @@
         <form method="post" action="{% url 'talk:chapter49' %}">
             {% csrf_token %}
             {% for i in '123456' %}
-            <div class="each-contact">
-                <div><strong>[{{i}}]</strong> 연락처 입력</div>
-                <div>
+            <div class="each-con">
+                <div class="con-title"><strong>[{{i}}]</strong> 연락처 입력</div>
+                <div class="con-name">
                     <input type="text" id="name{{i}}" name="name{{i}}" placeholder="김갈피" value="{{hellos | get_name:i}}">
                 </div>
-                <div>
+                <div class="con-contact">
                     <input type="text" id="contact{{i}}" name="contact{{i}}" placeholder="ex. 01012345678 or @example" value="{{hellos | get_contact:i}}">
                 </div>
             </div>
             {% endfor %}
             
-            <button class="btn dark-btn"type="submit">저장하기</button>
+            <button class="mt-btn btn dark-btn"type="submit">저장하기</button>
         </form>
     </div>
 </section>
