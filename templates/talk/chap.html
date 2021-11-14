@@ -19,14 +19,21 @@
     </div>
     {% endif %}
     {% if chapter.chap_num == 4 %}
+    <div class="your_bubble">
+        <img class="past your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
+        <div class="last-bubble">
+            <div  class="past your bubble">당신의 죽음을 반드시 전달받아야 할 사람이 있나요? 남겨진 사람들이 연락할 수 있도록 연락처를 알려주세요. (이메일이나 sns 아이디도 괜찮습니다.)</div>
+            <span>04:49</span>
+        </div>
+    </div>
+    {% endif %}
+    {% if chapter.chap_num == 4 %}
     <div class="my_bubble">
         <a class="past my bubble" href="{% url 'talk:chapter49'%}">연락처 입력하기</a>
     </div>
     {% endif %}
-
-    {% if question %}
-
-        
+    
+    {% if question %}  
     {% else %}
         {% for bubble in bubbles %}
             <div class="your_bubble">

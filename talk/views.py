@@ -1,5 +1,6 @@
 from django.http import response
 from django.shortcuts import get_object_or_404, redirect, render
+from accounts.views import start
 from talk.models import *
 from accounts.models import AccessCode, Address
 from django.http import HttpResponseRedirect
