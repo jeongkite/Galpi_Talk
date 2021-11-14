@@ -1,12 +1,23 @@
+
 {% extends '../base.html' %}
 {% block content %}
 
-<section>
-    <form method="post" action="{% url 'talk:chapter50' %}">
-        {% csrf_token %}
-        <input type="text" id="answer" name="answer" placeholder="유언장 작성" value="{{response.content}}">
+<section class="update">
+    <div class="header">
+        <a href="{% url 'talk:chap' cn=chapter.id %}"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+        <h3>{{ chapter.title }}</h3>
+    </div>
+    
+    {% if question.q_type == 0 %}
+    <input type="text" id="limit" readonly placeholder="{{question.limit}}"><br>
+    {% endif %}
+    <form class="update-form" action="{% url 'talk:chapter50' %}" method="POST">
+    {% csrf_token %}
+    
+        <input class="update-input" type="text" id="answer" name="answer" value="{{response.content}}" onkeypress="countLength(this, {{question.limit}})">
         
-        <button type="submit">저장하기</button>
+        <button class="btn dark-btn"type="submit">저장하기</button>
+    
     </form>
 </section>
 {% endblock %}

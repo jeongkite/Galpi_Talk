@@ -9,7 +9,11 @@
         <div class="exp-text">당신만의 이야기를<br>기록하는 웹 질문지</div>
         
         {% if user.is_authenticated %}
+            
         <button class="btn dark-btn" onclick="location.href='{% url "talk:chap_bridge" cn=1%}'">수정하기</button>
+            {% if user.is_done == True %}
+            <button class="btn light-btn" onclick="location.href='{% url "accounts:address" %}'">배송지 수정하기</button>
+            {% endif %}
         <button class="btn light-btn" onclick="location.href='{% url "accounts:logout" %}'">로그아웃</button>
         {% else %}
         <button class="btn dark-btn" onclick="location.href='{% url 'accounts:login' %}'">로그인</button>
