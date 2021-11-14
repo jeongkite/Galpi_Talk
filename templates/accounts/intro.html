@@ -10,8 +10,8 @@
         
         {% if user.is_authenticated %}
             
-        <button class="btn dark-btn" onclick="location.href='{% url "talk:chap_bridge" cn=1%}'">수정하기</button>
-            {% if user.is_done == True %}
+        <button class="btn dark-btn" onclick="location.href='{% url "talk:chap_bridge" cn=1%}'">문답 수정하기</button>
+            {% if is_done == True %}
             <button class="btn light-btn" onclick="location.href='{% url "talk:address" %}'">배송지 수정하기</button>
             {% endif %}
         <button class="btn light-btn" onclick="location.href='{% url "accounts:logout" %}'">로그아웃</button>

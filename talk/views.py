@@ -16,6 +16,8 @@ Chap = [1, 28, 40, 49]
 
 
 def chap(request, cn):
+    if int(cn) == 5:
+        return render(request, 'talk/chap5.html')
     info = Info.objects.get(user=request.user)
 
     chapter = get_object_or_404(Chapter, chap_num=cn)
@@ -208,7 +210,7 @@ def write_last(request):
 def address(request):
     info = get_object_or_404(Info, user=request.user)
     info.is_done = True
-    info.save
+    info.save()
     add_num = info.address_num
     add_nums = ""
     for i in range(0, add_num+1):
@@ -233,10 +235,10 @@ def address(request):
             Address.objects.bulk_create(address_arr)
         else:
             for i in range(0, add_num+1):
-                addresss[i].name = request.GET.get('name'+str(i))
-                addresss[i].phone = request.GET.get('phone'+str(i))
-                addresss[i].postal = request.GET.get('postal'+str(i))
-                addresss[i].addy = request.GET.get('addy'+str(i))
+                addresss[i].name = request.POST['name'+str(i)]
+                addresss[i].phone = request.POST['phone'+str(i)]
+                addresss[i].postal = request.POST['postal'+str(i)]
+                addresss[i].addy = request.POST['addy'+str(i)]
                 addresss[i].save()
         return render(request, 'talk/final.html')
     else:

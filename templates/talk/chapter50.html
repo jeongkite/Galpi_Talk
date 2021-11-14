@@ -14,7 +14,7 @@
     <form class="update-form" action="{% url 'talk:chapter50' %}" method="POST">
     {% csrf_token %}
     
-        <input class="update-input" type="text" id="answer" name="answer" value="{{response.content}}" onkeypress="countLength(this, {{question.limit}})">
+        <textarea class="update-input" type="text" id="answer" name="answer" onkeypress="countLength(this, {{question.limit}})">{{response.content}}</textarea>
         
         <button class="btn dark-btn"type="submit">저장하기</button>
     

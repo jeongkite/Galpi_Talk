@@ -52,7 +52,12 @@ def signup(request):
 
 
 def intro(request):
-    return render(request, 'accounts/intro.html')
+    infos = Info.objects.filter(user=request.user)
+    info = infos[0]
+    ctx = {
+        'is_done': info.is_done
+    }
+    return render(request, 'accounts/intro.html', context=ctx)
 
 
 def start(request):

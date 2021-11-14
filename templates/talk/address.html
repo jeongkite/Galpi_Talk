@@ -11,6 +11,7 @@
         <img src="/static/img/icon/text-2.svg" alt="">
         <form method="post" action="{% url 'talk:address' %}">
             {% csrf_token %}
+            {% if addresss %}
             {% for add in addresss %}
             <div class="each-con center-flex">
                 {% if forloop.first %}
@@ -23,12 +24,32 @@
                 {% else %}
                 <div class="con-title"><strong>[{{forloop.counter0}}]</strong> 배송지 입력</div>
                 {% endif %}
-                <input class="con-name" type="text" id="name{{forloop.counter0}}" name="name{{forloop.counter0}}" placeholder="김갈피" value="{{add.name}}">
-                <input class="con-name" type="text" id="phone{{forloop.counter0}}" name="phone{{forloop.counter0}}" placeholder="전화번호 ex. 01012345678" value="{{add.phone}}">
-                <input class="con-name" type="text" id="postal{{forloop.counter0}}" name="postal{{forloop.counter0}}" placeholder="우편번호 ex.01234" value="{{add.postal}}">
-                <input class="con-name" type="text" id="addy{{forloop.counter0}}" name="addy{{forloop.counter0}}" placeholder="주소 전체를 입력하세요" value="{{add.addy}}">
-            </div>
+                <input type="text" id="name{{forloop.counter0}}" name="name{{forloop.counter0}}" placeholder="김갈피" value="{{add.name}}">
+                <input type="text" id="phone{{forloop.counter0}}" name="phone{{forloop.counter0}}" placeholder="ex. 01012345678" value="{{add.phone}}">
+                <input type="text" id="postal{{forloop.counter0}}" name="postal{{forloop.counter0}}" placeholder="ex. 01234" value="{{add.postal}}">
+                <input type="text" id="addy{{forloop.counter0}}" name="addy{{forloop.counter0}}" placeholder="주소 전체를 입력하세요" value="{{add.addy}}">
+                </div>
             {% endfor %}
+            {% elif add_nums %}
+            {% for i in add_nums %}
+            <div class="each-con center-flex">
+                {% if forloop.first %}
+                <div class="info_box add-box">
+                    <p>
+                        문답자 <strong>본인의 주소</strong>를 작성해주세요.
+                        소장용 책자 [GALPI, ME]와 굿즈를 배송합니다.
+                    </p>
+                </div>
+                {% else %}
+                <div class="con-title"><strong>[{{forloop.counter0}}]</strong> 배송지 입력</div>
+                {% endif %}
+                <input type="text" id="name{{i}}" name="name{{i}}" placeholder="김갈피" value="">
+                <input type="text" id="phone{{i}}" name="phone{{i}}" placeholder="ex. 01012345678" value="">
+                <input type="text" id="postal{{i}}" name="postal{{i}}" placeholder="ex. 01234" value="">
+                <input type="text" id="addy{{i}}" name="addy{{i}}" placeholder="주소 전체를 입력하세요" value="">
+                </div>
+            {% endfor %}
+            {% endif %}
             <button class="mt-btn btn dark-btn"type="submit">저장하기</button>
         </form>
     </div>
