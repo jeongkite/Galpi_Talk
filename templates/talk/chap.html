@@ -24,7 +24,7 @@
     {% else %}
         {% for bubble in bubbles %}
             <div class="your_bubble">
-                <img class="your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
+                <img class="past your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
                 {% with bubble.0.content|split as contentNs %}
                     {% for contentN in contentNs  %}
                     {% if forloop.last %}
@@ -68,24 +68,30 @@
             </div>
     </div>
     {% endif %}
-    <form action="{% url 'talk:chap' cn=cn %}" method="POST">
+    <form id="last" action="{% url 'talk:chap' cn=cn %}" method="POST">
     {% csrf_token %}
-    {% if this_q.id == 50 %}
-        <a href="{% url 'talk:chapter50'%}">연락처 입력하기</a>
-    {% elif this_q.id == 51 %}
-        <a href="{% url 'talk:chapter51'%}">유언장 쓰러가기</a>
+    {% if this_q.id == 49 %}
+    <div class="my_bubble">
+        <a class="my bubble" href="{% url 'talk:chapter49'%}">연락처 입력하기</a>
+    </div>
+    {% elif this_q.id == 50 %}
+    <div class="my_bubble">
+        <a class="my bubble" href="{% url 'talk:chapter50'%}">유언장 쓰러가기</a>
+    </div>
     {% elif this_q.q_type == 1  %}
-        {% for choice in this_q.choice_set.all %}
-            {% if choice.content|regex_func %}
-            <button class=" img-bubble-choice" name="answer" id="answer" value="{{ choice.content }}"><img src="/static/img/choice/{{choice.content}}.png" alt=""></button>
-            {% else %}
-            <button class="bubble my choice-bubble " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
-            {% endif %}
-        {% endfor %}
+        <div class="container">
+            {% for choice in this_q.choice_set.all %}
+                {% if choice.content|regex_func %}
+                <button class="img-bubble-choice" name="answer" id="answer" value="{{ choice.content }}" style="background-image: url('/static/img/choice/{{choice.content}}.png');"></button>
+                {% else %}
+                <button class="bubble my choice-bubble " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
+                {% endif %}
+            {% endfor %}
+        </div>
     {% else %}
-    <div id="last" class="chapter-form">
+    <div class="chapter-form">
         <textarea maxlength="{{this_q.limit}}" name="answer" id="answer"  onkeypress="countLength(this, {{this_q.limit}})"></textarea>
-        <input type="text" id="limit" readonly><br>
+        <input type="text" id="limit" readonly placeholder="{{this_q.limit}}"><br>
         <button class="send" type="submit"><img src="/static/img/icon/send-button.svg" alt=""></button>
     </div>
     {% endif %}

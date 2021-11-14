@@ -2,13 +2,20 @@
 {% block content %}
 {% load regex_func %}
 
-<section>
+<section class="update">
     <div class="header">
-        <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+        <a href="{% url 'talk:chap' cn=chapter.id %}"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
         <h3>{{ chapter.title }}</h3>
     </div>
-    <div class="update-q-title">{{question.content}}</div>
-    <form action="{% url 'talk:update_answer' rn=response.id %}" method="POST">
+    {% with question.content|split as contentNs %}
+        {% for contentN in contentNs  %}
+        {% if forloop.last %}
+            <div  class="update-q-title">{{ contentN }}</div>
+        {% endif %}
+        {% endfor %}
+    {% endwith %}
+    <input type="text" id="limit" readonly placeholder="{{question.limit}}"><br>
+    <form class="update-form" action="{% url 'talk:update_answer' rn=response.id %}" method="POST">
         {% csrf_token %}
         {% if question.choice_set.all %}
             {% for choice in question.choice_set.all %}
@@ -19,8 +26,9 @@
                 {% endif %}
             {% endfor %}
         {% else %}
-            <input class="update-input" type="text" id="answer" name="answer" value="{{response.content}}">
-            <button class="chapter-button" type="submit"><img src="/static/img/icon/send-button.svg" alt=""></button>
+            <input class="update-input" type="text" id="answer" name="answer" value="{{response.content}}" onkeypress="countLength(this, {{question.limit}})">
+            
+            <button class="btn dark-btn"type="submit">저장하기</button>
         {% endif %}
         </form>
 </section>

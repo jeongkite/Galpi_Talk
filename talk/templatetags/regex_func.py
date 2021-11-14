@@ -11,13 +11,16 @@ def regex_func(context):
 
 @register.filter
 def get_name(arr, index):
-    print(index)
-    return arr[int(index)-1].name
+    if len(arr) != 0:
+        return arr[int(index)-1].name or ""
+    return ""
 
 
 @register.filter
 def get_contact(arr, index):
-    return arr[int(index)-1].contact
+    if len(arr) != 0:
+        return arr[int(index)-1].contact or ""
+    return ""
 
 
 @register.filter()
