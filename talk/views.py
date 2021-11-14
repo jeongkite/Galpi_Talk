@@ -56,6 +56,8 @@ def chap(request, qn):
         info.q_progress += 1
         info.save()
         if (info.q_progress == 28) or (info.q_progress == 40) or (info.q_progress == 49):
+            info.c_progress += 1
+            info.save()
             return render(request, 'talk/chap_bridge.html', {'cn': info.c_progress})
         return HttpResponseRedirect(reverse('talk:chap', args=[qn]))
 
