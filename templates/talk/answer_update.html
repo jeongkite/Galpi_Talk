@@ -14,17 +14,21 @@
         {% endif %}
         {% endfor %}
     {% endwith %}
+    {% if question.q_type == 0 %}
     <input type="text" id="limit" readonly placeholder="{{question.limit}}"><br>
+    {% endif %}
     <form class="update-form" action="{% url 'talk:update_answer' rn=response.id %}" method="POST">
         {% csrf_token %}
         {% if question.choice_set.all %}
+        <div class="update-container">
             {% for choice in question.choice_set.all %}
                 {% if choice.content|regex_func %}
-                <button class=" " name="answer" id="answer" value="{{ choice.content }}"><img src="/static/img/choice/{{choice.content}}.png" alt=""></button>
+                <button class="img-bubble-choice" name="answer" id="answer" value="{{ choice.content }}" style="background-image: url('/static/img/choice/{{choice.content}}.png');"></button>
                 {% else %}
-                <button class=" " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
+                <button class="border-none bubble my choice-bubble " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
                 {% endif %}
             {% endfor %}
+        </div>
         {% else %}
             <input class="update-input" type="text" id="answer" name="answer" value="{{response.content}}" onkeypress="countLength(this, {{question.limit}})">
             

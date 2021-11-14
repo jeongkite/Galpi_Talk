@@ -200,3 +200,7 @@ textarea {
 .white {
     color: white;
 }
+
+.border-none {
+    border: none;
+}
