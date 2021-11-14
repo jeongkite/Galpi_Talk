@@ -12,37 +12,19 @@ def chap_bridge(request, cn):
     return render(request, 'talk/chap_bridge.html', {"cn": cn})
 
 
-def chap_start(request, qn):
-    question = get_object_or_404(Question, id=1)
-
-    return render(request, 'talk/chap.html', {'question': question})
-
-
 Chap = [1, 28, 40, 49]
 
 
-def chap(request, qn):
+def chap(request, cn):
     info = Info.objects.get(user=request.user)
-    if (qn == 1) and (info.is_done == True):
-        info.c_progress = 1
-    elif (qn == 28) and (info.is_done == True):
-        info.c_progress = 2
-    elif (qn == 40) and (info.is_done == True):
-        info.c_progress = 3
-    elif (qn == 49) and (info.is_done == True):
-        info.c_progress = 4
-    elif (qn == 51) and (info.is_done == True):
-        info.c_progress = 5
-    info.save()
 
-    chapter = get_object_or_404(Chapter, chap_num=info.c_progress)
+    chapter = get_object_or_404(Chapter, chap_num=cn)
     if info.is_done == True:
         questions = Question.objects.filter(chapter=chapter)
     else:
         questions = Question.objects.filter(
             id__lte=int(info.q_progress), chapter=chapter)
-    this_qn = questions.last().id
-    this_q = get_object_or_404(Question, id=this_qn)
+    this_q = questions.last()
     bubbles = []
     for q in questions:
         this_response = q.response_set.filter(user=request.user)
@@ -63,12 +45,12 @@ def chap(request, qn):
             info.c_progress += 1
             info.save()
             return HttpResponseRedirect(reverse('talk:chap_bridge', args=[info.c_progress]))
-        return HttpResponseRedirect(reverse('talk:chap', args=[info.q_progress]))
+        return HttpResponseRedirect(reverse('talk:chap', args=[info.c_progress]))
 
     ctx = {
         'chapter': chapter,
         'bubbles': bubbles,
-        'qn': info.q_progress,
+        'cn': info.c_progress,
         'this_q': this_q,
     }
 
@@ -85,7 +67,7 @@ def update_answer(request, rn):
         answer = request.POST['answer']
         response.content = answer
         response.save()
-        return HttpResponseRedirect(reverse('talk:chap', args=[info.q_progress]))
+        return HttpResponseRedirect(reverse('talk:chap', args=[info.c_progress]))
     ctx = {
         'chapter': chapter,
         'question': question,

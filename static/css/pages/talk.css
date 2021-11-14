@@ -113,6 +113,8 @@
     width: 80%;
     box-sizing: border-box;
     border: none;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 #limit {
     width: 50px;
@@ -131,7 +133,8 @@
 .chapter button img {
     height: 50px;
     box-sizing: border-box;
-
+    margin: 0;
+    margin-bottom: -3px;
 }
 
 .update-q-title {
@@ -158,4 +161,15 @@
 
 .choice-bubble {
     text-align: center;
+}
+
+.last-bubble {
+    display: flex;
+    align-items: flex-end;
+}
+
+.last-bubble span {
+    margin-left: 5px;
+    padding-bottom: 10px;
+    color: white;
 }

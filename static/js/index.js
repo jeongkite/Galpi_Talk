@@ -1,4 +1,4 @@
-let chapArray = ['/privacy/', '/talk/chap/2/', '/talk/chap/29/', '/talk/chap/40/', '/talk/chap/50/', '/talk/chap5/',]
+let chapArray = ['/privacy/', '/talk/chap/1/', '/talk/chap/2/', '/talk/chap/3/', '/talk/chap/4/', '/talk/chap5/',]
 
 var chapter_ani_1 = bodymovin.loadAnimation({
     container: document.getElementById('chapter_ani_1'),
@@ -63,13 +63,13 @@ chapter_ani_1.addEventListener('complete', function () {
     location.href = '/talk/chap/1/'
 });
 chapter_ani_2.addEventListener('complete', function () {
-    location.href = '/talk/chap/28/'
+    location.href = '/talk/chap/2/'
 })
 chapter_ani_3.addEventListener('complete', function () {
-    location.href = '/talk/chap/40/'
+    location.href = '/talk/chap/3/'
 })
 chapter_ani_4.addEventListener('complete', function () {
-    location.href = '/talk/chap/49/'
+    location.href = '/talk/chap/4/'
 })
 chapter_ani_5.addEventListener('complete', function () {
     location.href = '/talk/chap5/'
@@ -83,5 +83,10 @@ function chap_next(chap) {
 }
 
 function countLength(tags, maxLength) {
-    document.getElementById("limit").value = (maxLength - tags.value.length)
+    document.getElementById("limit").value = (maxLength - tags.value.length);
+}
+
+window.onload = function () {
+    let last = document.getElementById("last");
+    last.scrollIntoView();
 }

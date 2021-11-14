@@ -27,12 +27,20 @@
                 <img class="your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
                 {% with bubble.0.content|split as contentNs %}
                     {% for contentN in contentNs  %}
+                    {% if forloop.last %}
+                    <div class="last-bubble">
+                    {% endif %}
                         <div  class="past your bubble">{{ contentN }}</div>
                     {% endfor %}
+                    <span>{{chapter.chap_num}}:{{bubble.0.id}}</span>
+                    </div>
                 {% endwith %}
+                <div class="">
                 {% if bubble.0.star %}
                 <img src="/static/img/icon/Star-Icon.svg" alt="">
                 {% endif %}
+
+                </div>
             </div>
             <div class="my_bubble">
                 <a class="past my " href="{% url 'talk:update_answer' bubble.1.id %}"><img src="/static/img/icon/Edit-Button.svg" alt=""></a>
@@ -46,17 +54,21 @@
     {% endif %}
 
     {% if this_q %}
-    
     <div class="your_bubble">
         <img class="your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
         {% with this_q.content|split as contentNs %}
             {% for contentN in contentNs  %}
+            {% if forloop.last %}
+            <div class="last-bubble">
+            {% endif %}
                 <div  class="your bubble">{{ contentN }}</div>
             {% endfor %}
         {% endwith %}
+            <span>{{cn}}:{{this_q.id}}</span>
+            </div>
     </div>
     {% endif %}
-    <form action="{% url 'talk:chap' qn=qn %}" method="POST">
+    <form action="{% url 'talk:chap' cn=cn %}" method="POST">
     {% csrf_token %}
     {% if this_q.id == 50 %}
         <a href="{% url 'talk:chapter50'%}">연락처 입력하기</a>
@@ -71,8 +83,8 @@
             {% endif %}
         {% endfor %}
     {% else %}
-    <div class="chapter-form">
-        <input maxlength="{{this_q.limit}}" type="text" id="answer" name="answer" onkeypress="countLength(this, {{this_q.limit}})">
+    <div id="last" class="chapter-form">
+        <textarea maxlength="{{this_q.limit}}" name="answer" id="answer"  onkeypress="countLength(this, {{this_q.limit}})"></textarea>
         <input type="text" id="limit" readonly><br>
         <button class="send" type="submit"><img src="/static/img/icon/send-button.svg" alt=""></button>
     </div>
