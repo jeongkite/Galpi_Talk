@@ -49,7 +49,7 @@ def chap(request, cn):
             return HttpResponseRedirect(reverse('talk:chap_bridge', args=[info.c_progress]))
         return HttpResponseRedirect(reverse('talk:chap', args=[info.c_progress]))
 
-    if (info.is_done) == True or (info.q_progress == 28) or (info.q_progress == 40) or (info.q_progress == 49):
+    if (info.is_done) == True or (info.q_progress == 27) or (info.q_progress == 39) or (info.q_progress == 48):
         ctx = {
             'chapter': chapter,
             'bubbles': bubbles,
