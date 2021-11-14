@@ -11,6 +11,9 @@ class AccessCode(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, verbose_name="유저", null=True, blank=True)
 
+    def __unicode__(self):
+        return self.access_code
+
     def __str__(self):
         return self.access_code
 # access_code[0] = A:0 -> 주소 입력 X, B:3, C:5

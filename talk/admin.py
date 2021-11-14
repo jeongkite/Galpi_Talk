@@ -31,7 +31,7 @@ class ChoiceAdmin(admin.ModelAdmin):
 class ResponseAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'chapter', 'question', 'content']
     list_display_links = ['id', 'chapter', 'question', 'content']
-    search_fields = ['user_username']
+    search_fields = ['accesscode__access_code', 'access_code']
 
 
 @admin.register(LastHello)
