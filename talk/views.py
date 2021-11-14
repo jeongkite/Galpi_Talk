@@ -187,6 +187,7 @@ def write_last(request):
     info = Info.objects.get(user=request.user)
     info.c_progress = 1
     info.q_progress = 51
+    info.is_done = True
     info.save()
     if responses:
         response = responses[0]
@@ -211,8 +212,6 @@ def write_last(request):
 
 def address(request):
     info = get_object_or_404(Info, user=request.user)
-    info.is_done = True
-    info.save()
     add_num = info.address_num
     add_nums = ""
     for i in range(0, add_num+1):
