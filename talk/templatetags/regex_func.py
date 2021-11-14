@@ -18,3 +18,8 @@ def get_name(arr, index):
 @register.filter
 def get_contact(arr, index):
     return arr[int(index)-1].contact
+
+
+@register.filter()
+def split(value):
+    return value.split("\\")

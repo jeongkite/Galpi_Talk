@@ -23,6 +23,15 @@ Chap = [1, 28, 40, 49]
 
 def chap(request, qn):
     info = Info.objects.get(user=request.user)
+    if qn == 2:
+        info.c_progress = 1
+    elif qn == 29:
+        info.c_progress = 2
+    elif qn == 40:
+        info.c_progress = 3
+    elif qn == 50:
+        info.c_progress = 4
+    info.save()
 
     chapter = get_object_or_404(Chapter, chap_num=info.c_progress)
     questions = Question.objects.filter(
@@ -47,8 +56,6 @@ def chap(request, qn):
         info.q_progress += 1
         info.save()
         if (info.q_progress == 28) or (info.q_progress == 40) or (info.q_progress == 49):
-            info.c_progress += 1
-            info.save()
             return render(request, 'talk/chap_bridge.html', {'cn': info.c_progress})
         return HttpResponseRedirect(reverse('talk:chap', args=[qn]))
 

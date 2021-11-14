@@ -7,7 +7,7 @@
         <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
         <h3>{{ chapter.title }}</h3>
     </div>
-    <div class="">{{question.content}}</div>
+    <div class="update-q-title">{{question.content}}</div>
     <form action="{% url 'talk:update_answer' rn=response.id %}" method="POST">
         {% csrf_token %}
         {% if question.choice_set.all %}

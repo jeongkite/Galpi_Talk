@@ -1,3 +1,4 @@
+let chapArray = ['/privacy/', '/talk/chap/2/', '/talk/chap/29/', '/talk/chap/40/', '/talk/chap/50/', '/talk/chap5/',]
 
 var chapter_ani_1 = bodymovin.loadAnimation({
     container: document.getElementById('chapter_ani_1'),
@@ -73,3 +74,10 @@ chapter_ani_4.addEventListener('complete', function () {
 chapter_ani_5.addEventListener('complete', function () {
     location.href = '/talk/chap5/'
 })
+
+function chap_back(chap) {
+    location.href = chapArray[chap - 1];
+}
+function chap_next(chap) {
+    location.href = chapArray[chap + 1];
+}

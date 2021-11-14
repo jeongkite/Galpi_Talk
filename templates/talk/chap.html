@@ -2,14 +2,21 @@
 {% block content %}
 {% load regex_func %}
 
-<section class="chap_{{chapter.chap_num}}">
-    <div class="header">
-        <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
-        <h3>{{ chapter.title }}</h3>
+<section class="chapter chap_{{chapter.chap_num}}">
+    <div class="chap-header">
+
+        <div onclick="chap_back({{chapter.chap_num}})"><img src="/static/img/icon/Arrow-Back-White.svg" alt=""></div>
+        <div>
+            <h3 class="white-text">{{ chapter.title }}</h3>
+            <a href=""><img src="" alt=""></a>
+        </div>
+        <div onclick="chap_next({{chapter.chap_num }})"><img src="/static/img/icon/Arrow-Next-White.svg" alt=""></div>
     </div>
 
     {% if chapter.content %}
-        <div class="notice">{{ chapter.content }}</div>
+    <div class="center-flex">
+        <div class="notice bubble">{{ chapter.content }}</div>
+    </div>
     {% endif %}
 
     {% if question %}
@@ -17,25 +24,32 @@
     {% else %}
         {% for bubble in bubbles %}
             <div class="your_bubble">
-                <img src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
-                <div  class="past your bubble">{{ bubble.0.content }}</div>
+                <img class="your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
+                {% with bubble.0.content|split as contentNs %}
+                    {% for contentN in contentNs  %}
+                        <div  class="past your bubble">{{ contentN }}</div>
+                    {% endfor %}
+                {% endwith %}
                 {% if bubble.0.star %}
                 <img src="/static/img/icon/Star-Icon.svg" alt="">
                 {% endif %}
             </div>
             <div class="my_bubble">
+                <a class="past my " href="{% url 'talk:update_answer' bubble.1.id %}"><img src="/static/img/icon/Edit-Button.svg" alt=""></a>
                 {% if bubble.1.content|regex_func %}
-                <img src="/static/img/choice/{{bubble.1.content}}.png" alt="">
+                <img class="past img-bubble" src="/static/img/choice/{{bubble.1.content}}.png" alt="">
                 {% else %}
                 <div class="past my bubble">{{ bubble.1.content }}</div>
                 {% endif %}
-                <a href="{% url 'talk:update_answer' bubble.1.id %}"><img src="/static/img/icon/Edit-Button.svg" alt=""></a>
             </div>
         {% endfor %}
     {% endif %}
 
     {% if this_q %}
+    <div class="your_bubble">
+        <img class="your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
         <div class="your bubble">{{ this_q.content }}</div>
+    </div>
     {% endif %}
     <form action="{% url 'talk:chap' qn=qn %}" method="POST">
     {% csrf_token %}
@@ -52,8 +66,10 @@
             {% endif %}
         {% endfor %}
     {% else %}
+    <div class="chapter-form">
         <input type="text" id="answer" name="answer">
         <button class="send" type="submit"><img src="/static/img/icon/send-button.svg" alt=""></button>
+    </div>
     {% endif %}
     </form>
 </section>

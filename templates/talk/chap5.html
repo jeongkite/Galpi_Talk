@@ -2,7 +2,7 @@
 {% block content %}
 
 
-<section>
+<section class="Chap_5">
     <div class="header">
         <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
         <h3>갈피</h3>
@@ -19,7 +19,7 @@
         <div class="past your bubble">[하루면담]을 마치며 갈피에게 남기고 싶은 말이 있나요?</div>
         <span>05:01</span>
     </div>
-    <a href="{% url 'talk:write_last' %}">네, 있어요!</a>
-    <a href="{% url 'talk:address' %}">🙂</a>
+    <a class="my bubble" href="{% url 'talk:write_last' %}">네, 있어요!</a>
+    <a class="my bubble" href="{% url 'talk:address' %}">🙂</a>
 </section>
 {% endblock %}
