@@ -103,6 +103,7 @@ def chapter49(request):
         'hellos': hellos,
         'qn': 49,
         'this_q': question,
+        'cn': chapter.id,
     }
 
     if request.method == "POST":
@@ -116,7 +117,7 @@ def chapter49(request):
             info.q_progress = 50
             info.save()
 
-            return render(request, 'talk/chapter49.html', context=ctx)
+            return HttpResponseRedirect(reverse('talk:chap', args=[4]))
         else:
             for i in range(0, len(hellos)):
                 hellos[i].name = request.POST['name' + str(i+1)]
@@ -124,7 +125,7 @@ def chapter49(request):
                 hellos[i].save()
                 info.q_progress = 50
                 info.save()
-            return render(request, 'talk/chapter49.html', context=ctx)
+            return HttpResponseRedirect(reverse('talk:chap', args=[4]))
     else:
         return render(request, 'talk/chapter49.html', context=ctx)
 
@@ -157,9 +158,9 @@ def chapter50(request):
         info.q_progress = 51
         info.c_progress = 5
         info.save()
-        return render(request, 'talk/chapter50.html', context=ctx)
+        return HttpResponseRedirect(reverse('talk:chap', args=[info.c_progress]))
     else:
-        return render(request, 'talk/chapter51.html', context=ctx)
+        return render(request, 'talk/chapter50.html', context=ctx)
 
 
 def write_last(request):

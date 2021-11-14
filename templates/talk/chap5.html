@@ -2,24 +2,29 @@
 {% block content %}
 
 
-<section class="Chap_5">
-    <div class="header">
-        <a href="#"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+<section class="chapter chap_5">
+    <div class=" header white">
+        <a href="#"><img src="/static/img/icon/Arrow-Back-White.svg" alt=""></a>
         <h3>갈피</h3>
     </div>
 
     <div class="your_bubble">
-        <img src="/static/img/icon/Profile-5.svg" alt="">
-        <div class="past your bubble">당신에게 남은 시간이 앞으로 일주일뿐이라면 지금 걱정하고 있는 그것을 똑같이 신경 쓰고 있을까요?</div>
-        <div class="past your bubble">걱정은 나를 발전시키는 실마리가 되기도 하지만 그 불안이 커지면 눈 앞에 있는 행복을 놓치기도 하죠.</div>
-        <div class="past your bubble">지금 하는 고민이 소중한 당신에게 진정으로 도움이 되나요?</div>
-        <div class="past your bubble">불편한 마음을 바라보는 데에 시간을 빼앗기기보다 기적처럼 만난 내 인연들에 좀 더 집중해보는 건 어떨까요?</div>
-        <div class="past your bubble">후회 없이 사랑하고 표현해보세요.</div>
-        <div class="past your bubble">[죽음 포트폴리오] 가 당신의 삶에 갈피가 되길 바라요.</div>
-        <div class="past your bubble">[하루면담]을 마치며 갈피에게 남기고 싶은 말이 있나요?</div>
-        <span>05:01</span>
+        <img class="your-profile-img" src="/static/img/icon/Profile-5.svg" alt="">
+        <div class=" your bubble">당신에게 남은 시간이 앞으로 일주일뿐이라면 지금 걱정하고 있는 그것을 똑같이 신경 쓰고 있을까요?</div>
+        <div class=" your bubble">걱정은 나를 발전시키는 실마리가 되기도 하지만 그 불안이 커지면 눈 앞에 있는 행복을 놓치기도 하죠.</div>
+        <div class=" your bubble">지금 하는 고민이 소중한 당신에게 진정으로 도움이 되나요?</div>
+        <div class=" your bubble">불편한 마음을 바라보는 데에 시간을 빼앗기기보다 기적처럼 만난 내 인연들에 좀 더 집중해보는 건 어떨까요?</div>
+        <div class=" your bubble">후회 없이 사랑하고 표현해보세요.</div>
+        <div class=" your bubble">[죽음 포트폴리오] 가 당신의 삶에 갈피가 되길 바라요.</div>
+        <div class="last-bubble">
+            <div class=" your bubble">[하루면담]을 마치며 갈피에게 남기고 싶은 말이 있나요?</div>
+            <span style="color: #332C28;">05:01</span>
+        </div>
     </div>
-    <a class="my bubble" href="{% url 'talk:write_last' %}">네, 있어요!</a>
-    <a class="my bubble" href="{% url 'talk:address' %}">🙂</a>
+    <div class="my_bubble" style="margin-bottom: 20px;">
+        <a class="bubble my" href="{% url 'talk:write_last' %}">네, 있어요!</a>
+    </div  class="my_bubble" style="  margin-bottom: 20px;" >
+        <a class="bubble my" href="{% url 'talk:address' %}">🙂</a>
+    </div>
 </section>
 {% endblock %}
