@@ -70,11 +70,11 @@
     {% endif %}
     <form id="last" action="{% url 'talk:chap' cn=cn %}" method="POST">
     {% csrf_token %}
-    {% if this_q.id == 49 or is_done == True %}
+    {% if this_q.id == 49 and cn == 4 %}
     <div class="my_bubble">
         <a class="my bubble" href="{% url 'talk:chapter49'%}">연락처 입력하기</a>
     </div>
-    {% elif this_q.id == 50 or is_done == True %}
+    {% elif this_q.id == 50 and cn == 4%}
     <div class="my_bubble">
         <a class="my bubble" href="{% url 'talk:chapter50'%}">유언장 쓰러가기</a>
     </div>

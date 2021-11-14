@@ -81,6 +81,7 @@ def update_answer(request, rn):
         return HttpResponseRedirect(reverse('talk:chap', args=[info.c_progress]))
     ctx = {
         'chapter': chapter,
+        'cn': chapter.id,
         'question': question,
         'response': response,
     }
@@ -156,6 +157,7 @@ def chapter50(request):
         'question': question,
         'qn': 50,
         'is_done': info.is_done,
+        'cn': chapter.id,
     }
 
     if request.method == "POST":

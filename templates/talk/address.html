@@ -24,9 +24,9 @@
                 {% else %}
                 <div class="con-title"><strong>[{{forloop.counter0}}]</strong> 배송지 입력</div>
                 {% endif %}
-                <input type="text" id="name{{forloop.counter0}}" name="name{{forloop.counter0}}" placeholder="김갈피" value="{{add.name}}">
-                <input type="text" id="phone{{forloop.counter0}}" name="phone{{forloop.counter0}}" placeholder="ex. 01012345678" value="{{add.phone}}">
-                <input type="text" id="postal{{forloop.counter0}}" name="postal{{forloop.counter0}}" placeholder="ex. 01234" value="{{add.postal}}">
+                <input type="text" id="name{{forloop.counter0}}" name="name{{forloop.counter0}}" placeholder="이름 ex. 김갈피" value="{{add.name}}">
+                <input type="text" id="phone{{forloop.counter0}}" name="phone{{forloop.counter0}}" placeholder="연락처 ex. 01012345678" value="{{add.phone}}">
+                <input type="text" id="postal{{forloop.counter0}}" name="postal{{forloop.counter0}}" placeholder="우편번호 ex. 01234" value="{{add.postal}}">
                 <input type="text" id="addy{{forloop.counter0}}" name="addy{{forloop.counter0}}" placeholder="주소 전체를 입력하세요" value="{{add.addy}}">
                 </div>
             {% endfor %}
