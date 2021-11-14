@@ -53,7 +53,7 @@
         {% endfor %}
     {% endif %}
 
-    {% if this_q %}
+    {% if this_q and is_done == False %}
     <div class="your_bubble">
         <img class="your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
         {% with this_q.content|split as contentNs %}
@@ -70,11 +70,11 @@
     {% endif %}
     <form id="last" action="{% url 'talk:chap' cn=cn %}" method="POST">
     {% csrf_token %}
-    {% if this_q.id == 49 %}
+    {% if this_q.id == 49 or is_done == True %}
     <div class="my_bubble">
         <a class="my bubble" href="{% url 'talk:chapter49'%}">연락처 입력하기</a>
     </div>
-    {% elif this_q.id == 50 %}
+    {% elif this_q.id == 50 or is_done == True %}
     <div class="my_bubble">
         <a class="my bubble" href="{% url 'talk:chapter50'%}">유언장 쓰러가기</a>
     </div>
@@ -88,7 +88,7 @@
                 {% endif %}
             {% endfor %}
         </div>
-    {% else %}
+    {% elif this_q and is_done == False %} 
     <div class="chapter-form">
         <textarea maxlength="{{this_q.limit}}" name="answer" id="answer"  onkeypress="countLength(this, {{this_q.limit}})"></textarea>
         <input type="text" id="limit" readonly placeholder="{{this_q.limit}}"><br>

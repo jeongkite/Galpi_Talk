@@ -47,12 +47,21 @@ def chap(request, cn):
             return HttpResponseRedirect(reverse('talk:chap_bridge', args=[info.c_progress]))
         return HttpResponseRedirect(reverse('talk:chap', args=[info.c_progress]))
 
-    ctx = {
-        'chapter': chapter,
-        'bubbles': bubbles,
-        'cn': info.c_progress,
-        'this_q': this_q,
-    }
+    if info.is_done == True:
+        ctx = {
+            'chapter': chapter,
+            'bubbles': bubbles,
+            'cn': info.c_progress,
+            'is_done': info.is_done,
+        }
+    else:
+        ctx = {
+            'chapter': chapter,
+            'bubbles': bubbles,
+            'cn': info.c_progress,
+            'this_q': this_q,
+            'is_done': info.is_done,
+        }
 
     return render(request, 'talk/chap.html', context=ctx)
 
@@ -144,6 +153,7 @@ def chapter50(request):
         'response': response,
         'question': question,
         'qn': 50,
+        'is_done': info.is_done,
     }
 
     if request.method == "POST":
@@ -158,6 +168,8 @@ def chapter50(request):
         info.q_progress = 51
         info.c_progress = 5
         info.save()
+        if info.is_done == True:
+            return HttpResponseRedirect(reverse('talk:chap', args=[4]))
         return HttpResponseRedirect(reverse('talk:chap5'))
     else:
         return render(request, 'talk/chapter50.html', context=ctx)
@@ -195,14 +207,14 @@ def write_last(request):
 
 def address(request):
     info = get_object_or_404(Info, user=request.user)
+    info.is_done = True
+    info.save
     add_num = info.address_num
     add_nums = ""
     for i in range(0, add_num+1):
         add_nums += str(i)
     addresss = Address.objects.filter(user=request.user)
     if request.method == "POST":
-        info.is_done = True
-        info.save
         if not addresss:
             address_arr = []
             for i in range(0, add_num+1):
@@ -221,10 +233,10 @@ def address(request):
             Address.objects.bulk_create(address_arr)
         else:
             for i in range(0, add_num+1):
-                addresss[i].name = request.POST['name'+str(i)]
-                addresss[i].phone = request.POST['phone'+str(i)]
-                addresss[i].postal = request.POST['postal'+str(i)]
-                addresss[i].addy = request.POST['addy'+str(i)]
+                addresss[i].name = request.GET.get('name'+str(i))
+                addresss[i].phone = request.GET.get('phone'+str(i))
+                addresss[i].postal = request.GET.get('postal'+str(i))
+                addresss[i].addy = request.GET.get('addy'+str(i))
                 addresss[i].save()
         return render(request, 'talk/final.html')
     else:

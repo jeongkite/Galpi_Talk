@@ -11,7 +11,7 @@
         <img src="/static/img/icon/text-2.svg" alt="">
         <form method="post" action="{% url 'talk:address' %}">
             {% csrf_token %}
-            {% for i in add_nums %}
+            {% for add in addresss %}
             <div class="each-con center-flex">
                 {% if forloop.first %}
                 <div class="info_box add-box">
@@ -21,12 +21,12 @@
                     </p>
                 </div>
                 {% else %}
-                <div class="con-title"><strong>[{{i}}]</strong> 배송지 입력</div>
+                <div class="con-title"><strong>[{{forloop.counter0}}]</strong> 배송지 입력</div>
                 {% endif %}
-                <input class="con-name" type="text" id="name{{i}}" name="name{{i}}" placeholder="김갈피" value="">
-                <input class="con-name" type="text" id="phone{{i}}" name="phone{{i}}" placeholder="전화번호 ex. 01012345678" value="">
-                <input class="con-name" type="text" id="postal{{i}}" name="postal{{i}}" placeholder="우편번호 ex.01234" value="">
-                <input class="con-name" type="text" id="addy{{i}}" name="addy{{i}}" placeholder="주소 전체를 입력하세요" value="">
+                <input class="con-name" type="text" id="name{{forloop.counter0}}" name="name{{forloop.counter0}}" placeholder="김갈피" value="{{add.name}}">
+                <input class="con-name" type="text" id="phone{{forloop.counter0}}" name="phone{{forloop.counter0}}" placeholder="전화번호 ex. 01012345678" value="{{add.phone}}">
+                <input class="con-name" type="text" id="postal{{forloop.counter0}}" name="postal{{forloop.counter0}}" placeholder="우편번호 ex.01234" value="{{add.postal}}">
+                <input class="con-name" type="text" id="addy{{forloop.counter0}}" name="addy{{forloop.counter0}}" placeholder="주소 전체를 입력하세요" value="{{add.addy}}">
             </div>
             {% endfor %}
             <button class="mt-btn btn dark-btn"type="submit">저장하기</button>
