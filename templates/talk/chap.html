@@ -59,7 +59,7 @@
         {% endfor %}
     {% endif %}
 
-    {% if this_q and is_done == False %}
+    {% if this_q.id != 27 and this_q.id != 39 and this_q.id != 48 is_done == False %}
     <div class="your_bubble">
         <img class="your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
         {% with this_q.content|split as contentNs %}
@@ -94,7 +94,7 @@
                 {% endif %}
             {% endfor %}
         </div>
-    {% elif this_q and is_done == False %} 
+    {% elif this_q.id != 27 and this_q.id != 39 and this_q.id != 48 is_done == False %} 
     <div class="chapter-form">
         <textarea maxlength="{{this_q.limit}}" name="answer" id="answer"  onkeypress="countLength(this, {{this_q.limit}})"></textarea>
         <input type="text" id="limit" readonly placeholder="{{this_q.limit}}"><br>
