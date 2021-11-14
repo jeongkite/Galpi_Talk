@@ -158,7 +158,7 @@ def chapter50(request):
         info.q_progress = 51
         info.c_progress = 5
         info.save()
-        return HttpResponseRedirect(reverse('talk:chap', args=[info.c_progress]))
+        return HttpResponseRedirect(reverse('talk:chap5'))
     else:
         return render(request, 'talk/chapter50.html', context=ctx)
 
