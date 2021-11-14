@@ -155,3 +155,7 @@
     padding: 0;
     border: none;
 }
+
+.choice-bubble {
+    text-align: center;
+}

@@ -13,6 +13,7 @@ class Info(models.Model):
     address_num = models.IntegerField(verbose_name="주소 개수")
     c_progress = models.IntegerField(verbose_name="챕터 진행", default=1)
     q_progress = models.IntegerField(verbose_name="질문 진행", default=1)
+    is_done = models.BooleanField(verbose_name="진행 여부", default=False)
 
 
 class Chapter(models.Model):
@@ -32,7 +33,7 @@ class Question(models.Model):
 
 class Choice(models.Model):
     chapter = models.ForeignKey(
-        Chapter, on_delete=models.CASCADE, verbose_name="해당 챕터")
+        Chapter, on_delete=models.SET_NULL, null=True, verbose_name="해당 챕터")
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, verbose_name="해당 질문")
     # 이미지인 경우 해당 파일명으로 처리 (ex. 12_1.jpg)
@@ -47,7 +48,8 @@ class Response(models.Model):
         Chapter, on_delete=models.CASCADE, verbose_name="해당 챕터")
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, verbose_name="해당 질문")
-    content = models.CharField(max_length=900, verbose_name="답변 내용")
+    content = models.CharField(
+        max_length=900, verbose_name="답변 내용", null=True, blank=True)
 
 
 class LastHello(models.Model):

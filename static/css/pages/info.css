@@ -15,7 +15,7 @@
     line-height: 180%;
     letter-spacing: -0.15px;
     text-align: left;
-    margin-bottom: 40%;
+    margin-bottom: 3%;
 }
 .info-ml {
     width: inherit;
@@ -33,4 +33,11 @@
 
 .final_text {
     margin-top: 10%;
+}
+
+.light-text {
+    font-size: 0.8rem;
+    font-weight: lighter;
+    line-height: 150%;
+    color: #999694;
 }

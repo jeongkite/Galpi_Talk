@@ -60,16 +60,16 @@ var final_ani = bodymovin.loadAnimation({
 });
 
 chapter_ani_1.addEventListener('complete', function () {
-    location.href = '/talk/chap/2/'
+    location.href = '/talk/chap/1/'
 });
 chapter_ani_2.addEventListener('complete', function () {
-    location.href = '/talk/chap/29/'
+    location.href = '/talk/chap/28/'
 })
 chapter_ani_3.addEventListener('complete', function () {
     location.href = '/talk/chap/40/'
 })
 chapter_ani_4.addEventListener('complete', function () {
-    location.href = '/talk/chap/50/'
+    location.href = '/talk/chap/49/'
 })
 chapter_ani_5.addEventListener('complete', function () {
     location.href = '/talk/chap5/'

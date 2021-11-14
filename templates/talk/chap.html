@@ -65,9 +65,9 @@
     {% elif this_q.q_type == 1  %}
         {% for choice in this_q.choice_set.all %}
             {% if choice.content|regex_func %}
-            <button class=" img-bubble" name="answer" id="answer" value="{{ choice.content }}"><img src="/static/img/choice/{{choice.content}}.png" alt=""></button>
+            <button class=" img-bubble-choice" name="answer" id="answer" value="{{ choice.content }}"><img src="/static/img/choice/{{choice.content}}.png" alt=""></button>
             {% else %}
-            <button class="bubble my  " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
+            <button class="bubble my choice-bubble " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
             {% endif %}
         {% endfor %}
     {% else %}

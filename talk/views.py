@@ -13,7 +13,7 @@ def chap_bridge(request, cn):
 
 
 def chap_start(request, qn):
-    question = get_object_or_404(Question, id=2)
+    question = get_object_or_404(Question, id=1)
 
     return render(request, 'talk/chap.html', {'question': question})
 
@@ -23,25 +23,29 @@ Chap = [1, 28, 40, 49]
 
 def chap(request, qn):
     info = Info.objects.get(user=request.user)
-    if (qn == 2) and (info.q_progress > 50):
+    if (qn == 1) and (info.is_done == True):
         info.c_progress = 1
-    elif (qn == 29) and (info.q_progress > 50):
+    elif (qn == 28) and (info.is_done == True):
         info.c_progress = 2
-    elif (qn == 40) and (info.q_progress > 50):
+    elif (qn == 40) and (info.is_done == True):
         info.c_progress = 3
-    elif (qn == 50) and (info.q_progress > 50):
+    elif (qn == 49) and (info.is_done == True):
         info.c_progress = 4
+    elif (qn == 51) and (info.is_done == True):
+        info.c_progress = 5
     info.save()
 
     chapter = get_object_or_404(Chapter, chap_num=info.c_progress)
-    questions = Question.objects.filter(
-        id__lte=int(info.q_progress)+1, chapter=chapter)
-    qn = questions.last().id
-    this_q = get_object_or_404(Question, id=qn)
+    if info.is_done == True:
+        questions = Question.objects.filter(chapter=chapter)
+    else:
+        questions = Question.objects.filter(
+            id__lte=int(info.q_progress), chapter=chapter)
+    this_qn = questions.last().id
+    this_q = get_object_or_404(Question, id=this_qn)
     bubbles = []
     for q in questions:
         this_response = q.response_set.filter(user=request.user)
-
         if this_response:
             item = []
             item.append(q)
@@ -55,16 +59,16 @@ def chap(request, qn):
         response.save()
         info.q_progress += 1
         info.save()
-        if (info.q_progress == 28) or (info.q_progress == 40) or (info.q_progress == 49):
+        if (info.q_progress == 28) or (info.q_progress == 40) or (info.q_progress == 49) or (info.q_progress == 51):
             info.c_progress += 1
             info.save()
-            return render(request, 'talk/chap_bridge.html', {'cn': info.c_progress})
-        return HttpResponseRedirect(reverse('talk:chap', args=[qn]))
+            return HttpResponseRedirect(reverse('talk:chap_bridge', args=[info.c_progress]))
+        return HttpResponseRedirect(reverse('talk:chap', args=[info.q_progress]))
 
     ctx = {
         'chapter': chapter,
         'bubbles': bubbles,
-        'qn': qn,
+        'qn': info.q_progress,
         'this_q': this_q,
     }
 
@@ -90,17 +94,17 @@ def update_answer(request, rn):
     return render(request, 'talk/answer_update.html', context=ctx)
 
 
-def chapter50(request):
+def chapter49(request):
     info = Info.objects.get(user=request.user)
     hellos = LastHello.objects.filter(user=request.user)
     chapter = get_object_or_404(Chapter, pk=4)
-    question = get_object_or_404(Question, pk=50)
+    question = get_object_or_404(Question, pk=49)
 
     ctx = {
         'chapter': chapter,
         'question': question,
         'hellos': hellos,
-        'qn': 50,
+        'qn': 49,
         'this_q': question,
     }
 
@@ -115,21 +119,21 @@ def chapter50(request):
             info.q_progress += 1
             info.save()
 
-            return render(request, 'talk/chap50.html', context=ctx)
+            return render(request, 'talk/chap49.html', context=ctx)
         else:
             for i in range(0, len(hellos)):
                 hellos[i].name = request.POST['name' + str(i+1)]
                 hellos[i].contact = request.POST['contact' + str(i+1)]
                 hellos[i].save()
-            return render(request, 'talk/chap50.html', context=ctx)
+            return render(request, 'talk/chap49.html', context=ctx)
     else:
-        return render(request, 'talk/chapter50.html', context=ctx)
+        return render(request, 'talk/chapter49.html', context=ctx)
 
 
-def chapter51(request):
+def chapter50(request):
     info = Info.objects.get(user=request.user)
     chapter = get_object_or_404(Chapter, pk=4)
-    question = get_object_or_404(Question, pk=51)
+    question = get_object_or_404(Question, pk=50)
     responses = Response.objects.filter(user=request.user, question=question)
     response = None
 
@@ -139,41 +143,34 @@ def chapter51(request):
         'chapter': chapter,
         'response': response,
         'question': question,
-        'qn': 51,
+        'qn': 50,
     }
 
     if request.method == "POST":
+        answer = request.POST['answer']
         if not responses:
-            answer = request.POST['answer']
             response = Response(user=request.user, chapter=chapter,
                                 question=question, content=answer)
-            response.save()
-            ctx['response'] = response
-            info.q_progress = 50
-            info.c_progress = 5
-            info.save()
-            return render(request, 'talk/chap50.html', context=ctx)
         else:
-            answer = request.POST['answer']
             response.content = answer
-            response.save()
-            info.q_progress = 50
-            info.c_progress = 5
-            info.save()
-            ctx['response'] = response
-            return render(request, 'talk/chap50.html', context=ctx)
+        response.save()
+        ctx['response'] = response
+        info.q_progress = 51
+        info.c_progress = 5
+        info.save()
+        return render(request, 'talk/chap50.html', context=ctx)
     else:
         return render(request, 'talk/chapter51.html', context=ctx)
 
 
 def write_last(request):
     chapter = get_object_or_404(Chapter, pk=5)
-    question = get_object_or_404(Question, pk=52)
+    question = get_object_or_404(Question, pk=51)
     responses = Response.objects.filter(user=request.user, question=question)
     response = None
     info = Info.objects.get(user=request.user)
     info.c_progress = 1
-    info.q_progress = 52
+    info.q_progress = 51
     info.save()
     if responses:
         response = responses[0]
