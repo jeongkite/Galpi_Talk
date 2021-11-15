@@ -8,7 +8,6 @@
         <div onclick="chap_back({{chapter.chap_num}})"><img src="/static/img/icon/Arrow-Back-White.svg" alt=""></div>
         <div>
             <h3 class="white-text">{{ chapter.title }}</h3>
-            <a href=""><img src="" alt=""></a>
         </div>
         <div onclick="chap_next({{chapter.chap_num }})"><img src="/static/img/icon/Arrow-Next-White.svg" alt=""></div>
     </div>
@@ -26,14 +25,19 @@
             <span>04:49</span>
         </div>
     </div>
-    {% endif %}
-    {% if chapter.chap_num == 4 %}
     <div class="my_bubble">
         <a class=" my bubble" href="{% url 'talk:chapter49'%}">연락처 입력하기</a>
+    </div> 
+    <div class="your_bubble">
+        <img class=" your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
+        <div class="last-bubble">
+            <div  class=" your bubble">당신의 유언장을 작성해주세요.</div>
+            <span>04:50</span>
+        </div>
     </div>
-    {% endif %}
-    
-    {% if question %}  
+    <div class="my_bubble">
+        <a class=" my bubble" href="{% url 'talk:chapter50'%}">유언장 작성하기</a>
+    </div> 
     {% else %}
         {% for bubble in bubbles %}
             <div class="your_bubble">
