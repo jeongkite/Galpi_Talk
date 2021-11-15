@@ -153,6 +153,8 @@ def chapter50(request):
     question = get_object_or_404(Question, pk=50)
     responses = Response.objects.filter(user=request.user, question=question)
     response = None
+    info.is_done = True
+    info.save()
 
     if responses:
         response = responses[0]
