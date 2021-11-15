@@ -34,7 +34,7 @@
             {% endfor %}
         </div>
         {% else %}
-            <textarea class="update-input" type="text" id="answer" name="answer" value="{{response.content}}" onkeypress="countLength(this, {{question.limit}})">{{response.content}}</textarea>
+            <textarea maxlength="{{question.limit}}" class="update-input" type="text" id="answer" name="answer" value="{{response.content}}" onkeypress="countLength(this, {{question.limit}})">{{response.content}}</textarea>
             
             <button class="btn dark-btn"type="submit">저장하기</button>
         {% endif %}

@@ -52,16 +52,16 @@ def signup(request):
 
 
 def intro(request):
-    if request.user.is_anonymous:
-        ctx = {
-            'is_done': False
-        }
-    else:
+    ctx = {
+        'is_done': False
+    }
+    if not request.user.is_anonymous:
         infos = Info.objects.filter(user=request.user)
-        info = infos[0]
-        ctx = {
-            'is_done': info.is_done
-        }
+        if infos:
+            info = infos[0]
+            ctx = {
+                'is_done': info.is_done
+            }
     return render(request, 'accounts/intro.html', context=ctx)
 
 

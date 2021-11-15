@@ -31,11 +31,14 @@ def chap(request, cn):
     bubbles = []
     for q in questions:
         this_response = q.response_set.filter(user=request.user)
-        if this_response:
+        if this_response and q != this_q:
             item = []
             item.append(q)
             item.append(this_response[0])
             bubbles.append(item)
+    q = []
+    q.append(this_q)
+    bubbles.append(q)
 
     if request.method == "POST":
         answer = request.POST['answer']
@@ -180,7 +183,9 @@ def chapter50(request):
         info.c_progress = 5
         info.save()
         if info.is_done == True:
+            print('is_done')
             return HttpResponseRedirect(reverse('talk:chap', args=[4]))
+        print("여깄니?????")
         return HttpResponseRedirect(reverse('talk:chap5'))
     else:
         return render(request, 'talk/chapter50.html', context=ctx)

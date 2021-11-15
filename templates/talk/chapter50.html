@@ -12,7 +12,7 @@
     <input type="text" id="limit" readonly placeholder="{{question.limit}}"><br>
     {% endif %}
     <form class="update-form" action="{% url 'talk:chapter50' %}" method="POST">
-    {% csrf_token %}
+    {% csrf_token %}ㅜ
     
         <textarea class="update-input" type="text" id="answer" name="answer" onkeypress="countLength(this, {{question.limit}})">{{response.content}}</textarea>
         
