@@ -90,14 +90,7 @@
     <form id="last" action="{% url 'talk:chap' cn=cn %}" method="POST">
     {% csrf_token %}
     
-    {% if this_q.id == 50 and chapter.chap_num == 4%}
-    <div class="my_bubble">
-        <a class="my bubble" href="{% url 'talk:chapter49'%}">연락처 입력하기</a>
-    </div>
-    <div class="my_bubble">
-        <a class="my bubble" href="{% url 'talk:chapter50'%}">유언장 쓰러가기</a>
-    </div>
-    {% elif this_q.q_type == 1  %}
+    {% if this_q.q_type == 1  %}
         <div class="container">
             {% for choice in this_q.choice_set.all %}
                 {% if choice.content|regex_func %}
@@ -107,7 +100,7 @@
                 {% endif %}
             {% endfor %}
         </div>
-    {% elif this_q and is_done == False %} 
+    {% elif this_q and is_done == False and chapter.chap_num != 4 %} 
     <div class="chapter-form">
         <textarea maxlength="{{this_q.limit}}" name="answer" id="answer"  onkeypress="countLength(this, {{this_q.limit}})"></textarea>
         <input type="text" id="limit" readonly placeholder="{{this_q.limit}}"><br>
