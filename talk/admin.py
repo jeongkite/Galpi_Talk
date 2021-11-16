@@ -31,11 +31,11 @@ class ChoiceAdmin(admin.ModelAdmin):
 class ResponseAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'chapter', 'question', 'content']
     list_display_links = ['id', 'chapter', 'question', 'content']
-    search_fields = ['user__username', 'username']
+    search_fields = ['user__username']
 
 
 @admin.register(LastHello)
 class LastHelloAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'chapter', 'question', 'name', 'contact']
     list_display_links = ['id', 'chapter', 'question']
-    search_fields = ['user_username']
+    search_fields = ['user__username']
