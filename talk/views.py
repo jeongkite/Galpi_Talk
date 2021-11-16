@@ -82,7 +82,8 @@ def update_answer(request, rn):
         answer = request.POST['answer']
         response.content = answer
         response.save()
-        return HttpResponseRedirect(reverse('talk:chap', args=[info.c_progress]))
+        chap_n = response.chapter.chap_num
+        return HttpResponseRedirect(reverse('talk:chap', args=[chap_n]))
     ctx = {
         'chapter': chapter,
         'cn': chapter.id,
