@@ -31,11 +31,10 @@ def chap(request, cn):
     bubbles = []
     for q in questions:
         this_response = q.response_set.filter(user=request.user)
-        if this_response:
-            item = []
-            item.append(q)
-            item.append(this_response[0])
-            bubbles.append(item)
+        item = []
+        item.append(q)
+        item.append(this_response[0])
+        bubbles.append(item)
 
     if request.method == "POST":
         answer = request.POST['answer']
