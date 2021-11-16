@@ -72,27 +72,12 @@
         {% endfor %}
     {% endif %}
 
-    {% if this_q and is_done == False %}
-    <!-- <div class="your_bubble">
-        <img class="your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
-        {% with this_q.content|split as contentNs %}
-            {% for contentN in contentNs  %}
-            {% if forloop.last %}
-            <div class="last-bubble">
-            {% endif %}
-                <div  class="your bubble">{{ contentN }}</div>
-            {% endfor %}
-        {% endwith %}
-            <span>{{cn}}:{{this_q.id}}</span>
-            </div>
-    </div> -->
-    {% endif %}
     <form id="last" action="{% url 'talk:chap' cn=cn %}" method="POST">
     {% csrf_token %}
     
     {% if this_q.q_type == 1  %}
         <div class="container">
-        {% for choice in this_q.choice_set.all %}
+            {% for choice in this_q.choice_set.all %}
                 {% if choice.content|regex_func %}
                 <button class="img-bubble-choice" name="answer" id="answer" value="{{ choice.content }}" style="background-image: url('/static/img/choice/{{choice.content}}.png');"></button>
                 {% else %}
