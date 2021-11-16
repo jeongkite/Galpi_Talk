@@ -33,7 +33,8 @@ def chap(request, cn):
         this_response = q.response_set.filter(user=request.user)
         item = []
         item.append(q)
-        item.append(this_response[0])
+        if (this_response):
+            item.append(this_response[0])
         bubbles.append(item)
 
     if request.method == "POST":
