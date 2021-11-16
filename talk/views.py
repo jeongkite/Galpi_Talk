@@ -26,7 +26,7 @@ def chap(request, cn):
         questions = Question.objects.filter(chapter=chapter)
     else:
         questions = Question.objects.filter(
-            id__lte=int(info.q_progress), chapter=chapter)
+            id__lte=int(info.q_progress+1), chapter=chapter)
     this_q = questions.last()
     bubbles = []
     for q in questions:
