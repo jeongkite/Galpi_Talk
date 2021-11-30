@@ -21,3 +21,4 @@ class PrivacyAdmin(admin.ModelAdmin):
 class AddressAdmin(admin.ModelAdmin):
     list_display = ['user', 'name', 'is_other']
     list_display_links = ['user', 'name']
+    search_fields = ['user__username']
