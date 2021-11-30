@@ -14,4 +14,5 @@ urlpatterns = [
     path('address/', views.address, name="address"),
     path('final/', views.final, name="final"),
     path('chap5/', views.chap5, name="chap5"),
+    path('done/', views.done, name='done'),
 ]

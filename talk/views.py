@@ -267,3 +267,7 @@ def final(request):
 
 def chap5(request):
     return render(request, 'talk/chap5.html')
+
+
+def done(request):
+    return render(request, 'talk/done.html')
