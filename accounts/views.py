@@ -116,3 +116,7 @@ def privacy(request):
 
     ctx = {"form": form, 'privacy': privacy}
     return render(request, "accounts/privacy_form.html", ctx)
+
+
+def done(request):
+    return render(request, 'talk/done.html')
