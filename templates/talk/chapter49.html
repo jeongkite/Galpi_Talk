@@ -1,0 +1,39 @@
+{% extends '../base.html' %}
+{% block content %}
+{% load regex_func %}
+
+<section class="update">
+    <div class="header">
+        <a href="{% url 'talk:chap' cn=chapter.id %}"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+        <h3>{{ chapter.title }}</h3>
+    </div>
+    <div class="center-flex">
+        <div class="info_box add-box">
+            <p>
+                당신의 죽음을 전달받아야 할 사람을 입력해주세요.
+                원하는 만큼 입력 후(최대 6명) 아래의 저장 버튼을 눌러주세요.
+                <br><br>
+                <strong>[죽음 포트폴리오] 전송지와는 별개의 명단</strong>으로, SNS계정 아이디 혹은 이메일 주소 등의 형식도 괜찮습니다.
+                <br><br>
+                리플렛 [죽음 포트폴리오] 에 입력되는 항목으로, 이 곳에 기입된 연락처는 별도의 연락에 쓰이지 않습니다.
+            </p>
+        </div>
+        <form method="post" action="{% url 'talk:chapter49' %}">
+            {% csrf_token %}
+            {% for i in '123456' %}
+            <div class="each-con">
+                <div class="con-title"><strong>[{{i}}]</strong> 연락처 입력</div>
+                <div class="con-name">
+                    <input type="text" id="name{{i}}" name="name{{i}}" placeholder="김갈피" value="{{hellos | get_name:i}}">
+                </div>
+                <div class="con-contact">
+                    <input type="text" id="contact{{i}}" name="contact{{i}}" placeholder="ex. 01012345678 or @example" value="{{hellos | get_contact:i}}">
+                </div>
+            </div>
+            {% endfor %}
+            
+            <button class="mt-btn btn dark-btn"type="submit">저장하기</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

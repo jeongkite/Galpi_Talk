@@ -1,0 +1,16 @@
+.color-strong {
+    color: #98A8D3;
+    font-weight: normal;
+}
+
+.nanumsquare {
+    font-family: NanumSquare;
+}
+
+.question-text {
+    margin-top: 15%;
+    width: 60%;
+    line-height: 180%;
+    font-size: 0.85rem;
+    letter-spacing: -0.15px;
+}

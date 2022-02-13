@@ -1,0 +1,31 @@
+.privacy_sec {
+    /* background: rgb(248, 248, 248); */
+    height: 100%;
+}
+.privacy_sec table{
+    border-collapse: collapse;
+}
+td {
+    font-family: NanumSquare;
+    font-size: 0.85rem;
+}
+td h4 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-family: NanumSquare;
+    font-size: 0.92rem;
+    padding: 1.5vh 5px;
+    border-radius: 3vh;
+    background: #F5F5F5;
+}
+td h4 span {
+    font-size: 0.82rem;
+    color: #999694;
+}
+label {
+    font-weight: bold;
+}
+
+.table-border {
+    border-bottom: 1px solid #F5F5F5;
+}

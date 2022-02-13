@@ -1,0 +1,76 @@
+{% extends '../base.html' %}
+{% block content %}
+{% load regex_func %}
+
+<section class="update">
+    <div class="header">
+        <a onclick="history.back(-1)"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+        <h3>배송지 입력</h3>
+    </div>
+    <div class="center-flex">
+        <img src="/static/img/icon/text-2.svg" alt="">
+        <form method="post" action="{% url 'talk:address' %}">
+            {% csrf_token %}
+            {% if addresss %}
+            {% for add in addresss %}
+            <div class="each-con center-flex">
+                {% if forloop.first %}
+                <div class="info_box add-box">
+                    <p>
+                        1. <strong>문답자 본인의 주소</strong>를 작성해주세요.<br>
+                        소장용 책자 [GALPI, ME]와 굿즈를 배송합니다.<br><br>
+                        2. 구입한 리워드에 따라 {{add_num}}개의 주소를 기입해주세요.<br>
+                        아래의 배송지로는 리플렛 [죽음 포트폴리오]가 배송됩니다.<br>
+                        같은 주소로 중복하여 배송하기를 원하는 경우 원하는 수만큼 중복하여 입력해주세요.
+                    </p>
+                </div>
+                {% else %}
+                <div class="con-title"><strong>[{{forloop.counter0}}]</strong> 배송지 입력</div>
+                {% endif %}
+                {% if forloop.first %}
+                <input type="text" id="name{{forloop.counter0}}" name="name{{forloop.counter0}}" placeholder="문답자 본인 이름" value="{{add.name}}">
+                {% else %}
+                <input type="text" id="name{{forloop.counter0}}" name="name{{forloop.counter0}}" placeholder="이름 ex. 김갈피" value="{{add.name}}">
+                {% endif %}
+                <input type="text" id="phone{{forloop.counter0}}" name="phone{{forloop.counter0}}" placeholder="연락처 ex. 01012345678" value="{{add.phone}}">
+                <input type="text" id="postal{{forloop.counter0}}" name="postal{{forloop.counter0}}" placeholder="우편번호 ex. 01234" value="{{add.postal}}">
+                <input type="text" id="addy{{forloop.counter0}}" name="addy{{forloop.counter0}}" placeholder="행정구역 / 도로명 주소 / 상세주소 를 입력해주세요." value="{{add.addy}}">
+                <div class="gray">ex. 서울특별시 중구 / 세종대로 1200 / ㅇㅇ동 ㅇㅇ호</div>
+                </div>
+            {% endfor %}
+            
+            {% elif add_nums %}
+            {% for i in add_nums %}
+            <div class="each-con center-flex">
+                {% if forloop.first %}
+                <div class="info_box add-box">
+                    <p>
+                        <strong>문답자 본인의 주소</strong>를 작성해주세요.<br>
+                        소장용 책자 [GALPI, ME]와 굿즈를 배송합니다.<br><br>
+                        구입한 리워드에 따라 {{add_num}}개의 주소를 기입해주세요.<br>
+                        아래의 배송지로는 리플렛 [죽음 포트폴리오]가 배송됩니다.<br>
+                        같은 주소로 중복하여 배송하기를 원하는 경우 원하는 수만큼 중복하여 입력해주세요.
+                    </p>
+                </div>
+                {% else %}
+                <div class="con-title"><strong>[{{forloop.counter0}}]</strong> 배송지 입력</div>
+                {% endif %}
+                {% if forloop.first %}
+                <input type="text" id="name{{forloop.counter0}}" name="name{{forloop.counter0}}" placeholder="문답자 본인 이름" value="{{add.name}}">
+                {% else %}
+                <input type="text" id="name{{i}}" name="name{{i}}" placeholder="이름 ex. 김갈피" value="">
+                {% endif %}
+                <input type="text" id="phone{{i}}" name="phone{{i}}" placeholder="연락처 ex. 01012345678" value="">
+                <input type="text" id="postal{{i}}" name="postal{{i}}" placeholder="우편번호 ex. 01234" value="">
+                <input type="text" id="addy{{i}}" name="addy{{i}}" placeholder="행정구역 / 도로명 주소 / 상세주소 를 입력해주세요." value="">
+                <div class="gray">ex. 서울특별시 중구 / 세종대로 1200 / ㅇㅇ동 ㅇㅇ호</div>
+                </div>
+                
+            </div>
+            {% endfor %}
+            {% endif %}
+            <button class="mt-btn btn dark-btn"type="submit">저장하기</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

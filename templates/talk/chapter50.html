@@ -1,0 +1,23 @@
+
+{% extends '../base.html' %}
+{% block content %}
+
+<section class="update">
+    <div class="header">
+        <a href="{% url 'talk:chap' cn=chapter.id %}"><img src="/static/img/icon/Arrow-Back-Black.svg" alt=""></a>
+        <h3>{{ chapter.title }}</h3>
+    </div>
+    <div  class="update-q-title">당신의 유언장을 작성해주세요. (참고 : 시신처리, 물건처분, 내가 죽은 후 꼭 지켜졌으면 하는 일 등)</div>
+    {% if question.q_type == 0 %}
+    <input type="text" id="limit" readonly placeholder="{{question.limit}}"><br>
+    {% endif %}
+    <form class="update-form" action="{% url 'talk:chapter50' %}" method="POST">
+    {% csrf_token %}
+    
+        <textarea class="update-input" type="text" id="answer" name="answer" onkeypress="countLength(this, {{question.limit}})">{{response.content}}</textarea>
+        
+        <button class="btn dark-btn"type="submit">저장하기</button>
+    
+    </form>
+</section>
+{% endblock %}

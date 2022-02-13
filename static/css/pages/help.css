@@ -1,0 +1,66 @@
+.help-sec {
+    background: #2E3340;
+}
+
+.help-con {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.help-1 {
+    background-image: url(/static/img/help/help_1.png);
+}
+.help-2 {
+    background-image: url(/static/img/help/help_2.png);
+}
+.help-3 {
+    background-image: url(/static/img/help/help_3.png);
+}
+.help-4 {
+    background-image: url(/static/img/help/help_4.png);
+}
+
+.help-img {
+    height: 100vh;    
+    object-fit: contain;
+}
+
+.help-icon {
+    padding: 14px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+@media not all and (hover: hover) {
+    .help-img {
+        width: 100vw;
+    }
+    .help-back {
+        margin-right: 27%;
+    }
+    .help-next {
+        margin-left: 27%;
+    }
+}
+
+@media (hover: hover) {
+    .help-con {
+        width: 500px;
+    }
+    .help-icon {
+        position: static;
+        box-sizing: border-box;
+    }
+    .help-back {
+        margin-right: 30%;
+    }
+    .help-next {
+        margin-left: 30%;
+    }
+}
+

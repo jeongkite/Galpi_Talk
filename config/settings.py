@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-5qpjghj1qh421csaqv3i9_ia1-9g(j#s(5a2tr8$e)cgq6=zcw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -134,5 +134,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 로그인 성공후 이동하는 URL
-# TODO start로 바꾸기
-LOGIN_REDIRECT_URL = '/accounts/intro/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)

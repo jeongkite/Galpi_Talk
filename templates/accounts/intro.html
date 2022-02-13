@@ -1,18 +1,27 @@
-{% extends 'base.html' %}
+{% extends '../base.html' %}
 {% block content %}
+<section>
+    <div class="center-flex">
 
-<h1>하루면담</h1>
-<div>당신만의 이야기를</div>
-<div>기록하는 웹 질문지</div>
+        <div class="line_lottie" id="lottie_main"></div>
+    
+        <h1>하루면담</h1>
+        <div class="exp-text">당신만의 이야기를<br>기록하는 웹 질문지</div>
+        
+        {% if user.is_authenticated %}
+            
+            <button class="btn dark-btn" onclick="location.href='{% url "talk:chap_bridge" cn=1%}'">문답 수정하기</button>
+            {% if is_done %}
+            <button class="btn light-btn" onclick="location.href='{% url "talk:address" %}'">배송지 수정하기</button>
+            {% endif %}
+            <button class="btn light-btn" onclick="location.href='{% url "accounts:logout" %}'">로그아웃</button>
+        {% else %}
+            <button class="btn dark-btn" onclick="location.href='{% url 'accounts:login' %}'">로그인</button>
+            <button class="btn light-btn" onclick="location.href='{% url 'accounts:signup' %}'">회원가입</button>
+        {% endif %}
 
-{% if user.is_authenticated %}
-<span>{{ user.username }}</span>
-<button>로그아웃</button>
-{% else %}
-<a href="{% url 'accounts:login' %}"><button type="button" class="btn dark-btn">로그인</button></a>
-{% endif %}
-<a href="{% url 'accounts:signup' %}"><button type="button" class="btn light-btn">회원가입</button></a>
-
-<a href="">문제가 생겼나요?</a>
+        <a class="question" href="{% url 'accounts:question' %}">문제가 생겼나요?</a>
+    </div>
+</section>
 
 {% endblock %}

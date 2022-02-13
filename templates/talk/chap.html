@@ -1,0 +1,99 @@
+{% extends '../base.html' %}
+{% block content %}
+{% load regex_func %}
+
+<section class="chapter chap_{{chapter.chap_num}}">
+    <div class="chap-header">
+
+        <div onclick="chap_back({{chapter.chap_num}})"><img src="/static/img/icon/Arrow-Back-White.svg" alt=""></div>
+        <div>
+            <h3 class="white-text">{{ chapter.title }}</h3>
+        </div>
+        <div onclick="chap_next({{chapter.chap_num }})"><img src="/static/img/icon/Arrow-Next-White.svg" alt=""></div>
+    </div>
+
+    {% if chapter.content %}
+    <div class="center-flex">
+        <div class="notice bubble">{{ chapter.content }}</div>
+    </div>
+    {% endif %}
+    {% if chapter.chap_num == 4 %}
+    <div class="your_bubble">
+        <img class=" your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
+        <div class="last-bubble">
+            <div  class=" your bubble">당신의 죽음을 반드시 전달받아야 할 사람이 있나요? 남겨진 사람들이 연락할 수 있도록 연락처를 알려주세요. (이메일이나 sns 아이디도 괜찮습니다.)</div>
+            <span>04:49</span>
+        </div>
+    </div>
+    <div class="my_bubble">
+        <a class=" my bubble" href="{% url 'talk:chapter49'%}">연락처 입력하기</a>
+    </div> 
+    <div class="your_bubble">
+        <img class=" your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
+        <div class="last-bubble">
+            <div  class=" your bubble">당신의 유언장을 작성해주세요.</div>
+            <span>04:50</span>
+        </div>
+    </div>
+    <div class="my_bubble">
+        <a class=" my bubble" href="{% url 'talk:chapter50'%}">유언장 작성하기</a>
+    </div> 
+    {% else %}
+        {% for bubble in bubbles %}
+            <div class="your_bubble">
+                <img class="your-profile-img" src="/static/img/icon/Profile-{{chapter.chap_num}}.svg" alt="">
+                {% with bubble.0.content|split as contentNs %}
+                    {% for contentN in contentNs  %}
+                    {% if forloop.last %}
+                    <div class="last-bubble">
+                    {% endif %}
+                        <div  class="your bubble">{{ contentN }}</div>
+                    {% endfor %}
+                    <span>{{chapter.chap_num}}:{{bubble.0.id}}</span>
+                    </div>
+                {% endwith %}
+                <div class="">
+                {% if bubble.0.star %}
+                <img src="/static/img/icon/Star-Icon.svg" alt="">
+                {% endif %}
+
+                </div>
+            </div>
+            {% if bubble.1 %}
+            <div class="my_bubble">
+                <a class=" my " href="{% url 'talk:update_answer' bubble.1.id %}"><img src="/static/img/icon/Edit-Button.svg" alt=""></a>
+                {% if bubble.1.content|regex_func %}
+                <img class="img-bubble" src="/static/img/choice/{{bubble.1.content}}.png" alt="">
+                {% else %}
+                <div class=" my bubble">{{ bubble.1.content }}</div>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <form id="last" action="{% url 'talk:chap' cn=cn %}" method="POST">
+    {% csrf_token %}
+    
+    {% if this_q.q_type == 1  %}
+        <div class="container">
+            {% for choice in this_q.choice_set.all %}
+                {% if choice.content|regex_func %}
+                <button class="img-bubble-choice" name="answer" id="answer" value="{{ choice.content }}" style="background-image: url('/static/img/choice/{{choice.content}}.png');"></button>
+                {% else %}
+                <button class="bubble my choice-bubble " name="answer" id="answer" value="{{ choice.content }}">{{ choice.content }}</button>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% elif this_q and is_done == False and cn != 4 %} 
+    <div class="chapter-form">
+        <textarea maxlength="{{this_q.limit}}" name="answer" id="answer"  onkeypress="countLength(this, {{this_q.limit}})"></textarea>
+        <input type="text" id="limit" readonly placeholder="{{this_q.limit}}"><br>
+        <button class="send" type="submit"><img src="/static/img/icon/send-button.svg" alt=""></button>
+    </div>
+    {% endif %}
+    </form>
+</section>
+
+
+{% endblock %}
